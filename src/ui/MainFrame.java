@@ -12,8 +12,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(new Color(20, 195, 142));
-        LoginView loginView = new LoginView();
-        add(loginView);
+        add(LoginView.getInstance());
         setLayout(null);
         setVisible(true);
     }

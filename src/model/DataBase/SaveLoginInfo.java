@@ -1,17 +1,16 @@
 package model.DataBase;
 
-import model.user.User;
-
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SaveLoginInfo {
 
 
-    public void saveToFile(ArrayList<User> user) {
+    public void saveToFile(HashMap<String,String> user) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Users.csv"))) {
-            for (User checkUser : Repository.users) {
-                writer.write(checkUser.getEmail() + "," + checkUser.getPassWord() + ";");
+            for (String email : Repository.getUsers().keySet()) {
+                String password = Repository.users.get(email);
+                writer.write(email + "," + password);
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -19,17 +18,15 @@ public class SaveLoginInfo {
         }
     }
 
-    public void readFromFile(User user) {
+    public void readFromFile(HashMap<String, String> users) {
         try (BufferedReader reader = new BufferedReader(new FileReader("Users.csv"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Split the line by the comma delimiter
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
-                    String username = parts[0];
+                    String email = parts[0];
                     String password = parts[1];
-                    System.out.println("Username: " + username + ", Password: " + password);
-                    // In a real application, compare the username and password with the user input for authentication
+                    users.put(email, password);
                 }
             }
         } catch (IOException e) {
@@ -38,9 +35,9 @@ public class SaveLoginInfo {
     }
 
     public static class Repository {
-        static ArrayList<User> users = new ArrayList<>();
+        static HashMap<String,String> users = new HashMap<>();
 
-        public static ArrayList<User> getUsers() {
+        public static HashMap<String,String> getUsers() {
             return users;
         }
     }

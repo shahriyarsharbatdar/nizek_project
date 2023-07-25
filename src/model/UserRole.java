@@ -1,4 +1,4 @@
-package model.user;
+package model;
 
 public enum UserRole {
     SUPER_ADMIN,
