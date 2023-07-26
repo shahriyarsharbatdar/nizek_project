@@ -1,5 +1,6 @@
 package ui.login;
 
+import manager.UserManager;
 import model.User;
 import model.UserRole;
 
@@ -12,7 +13,7 @@ public class Controller {
     final private Pattern emailPattern = Pattern.compile(emailRegex);
     final private Pattern passwordPattern = Pattern.compile(passwordRegex);
     private static Controller instance = null;
-    User user = new User("ali", "asghari", "admin@gmail.com", "12345678", UserRole.SUPER_ADMIN);
+    User user = new User("ali", "asghari", "a@a.com", "12345678", UserRole.SUPER_ADMIN);
 
 
     private Controller() {

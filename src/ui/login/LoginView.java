@@ -1,63 +1,93 @@
 package ui.login;
+
+import ui.MainFrame;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginView extends JPanel {
     private static LoginView instance = null;
-
-    JLabel LoginText = new JLabel();
-    JLabel EmailText = new JLabel();
-    JTextField EmailField = new JTextField();
-    JLabel PasswordText = new JLabel();
+    JButton loginButton = new JButton("Login");
+    JLabel loginText = new JLabel();
+    JLabel emailText = new JLabel();
+    JTextField emailField = new JTextField();
+    JLabel passwordText = new JLabel();
     JPasswordField PasswordField = new JPasswordField();
-    Button LoginButton = new Button("login");
-    JLabel Alert = new JLabel();
+
+    JLabel alert = new JLabel();
     String userEmail;
     String userPassword;
 
 
     private LoginView() {
         setBackground(new Color(255, 244, 244));
-        setBounds(250,80,400,500);
+        setBounds(250, 80, 400, 500);
+        setLayout(null);
         //login text
-        LoginText.setText("Login");
-        LoginText.setBounds(165,25,100,200);
-        LoginText.setFont(new Font("Serif",Font.BOLD,30));
-        add(LoginText);
+        loginText.setText("Login");
+        loginText.setBounds(165, 25, 100, 200);
+        loginText.setFont(new Font("Serif", Font.BOLD, 30));
+        add(loginText);
         //email text and field
-        EmailText.setText("Email");  //email text
-        EmailText.setBounds(70,175,100,100);
-        EmailText.setFont(new Font("Serif",Font.BOLD,15));
-        add(EmailText);
-        EmailField.setBounds(120, 200, 200, 50);
-        add(EmailField);
+        emailText.setText("Email");  //email text
+        emailText.setBounds(70, 175, 100, 100);
+        emailText.setFont(new Font("Serif", Font.BOLD, 15));
+        add(emailText);
+        emailField.setBounds(120, 200, 200, 50);
+        add(emailField);
         //pass text and field
-        PasswordText.setText("Password");  //pass text
-        PasswordText.setBounds(50,270,100,50);
-        PasswordText.setFont(new Font("Serif",Font.BOLD,15));
-        add(PasswordText);
+        passwordText.setText("Password");  //pass text
+        passwordText.setBounds(50, 270, 100, 50);
+        passwordText.setFont(new Font("Serif", Font.BOLD, 15));
+        add(passwordText);
         PasswordField.setBounds(120, 270, 200, 50);
         add(PasswordField);
         //login button
-        LoginButton.setBounds(120,350,100,100);
-        LoginButton.addActionListener(e -> {
-            userEmail = EmailField.getText();
-            userPassword = PasswordField.getText();
-            if(!(Controller.getInstance().regexAuthenticate())){
-                Alert.setText("Username or password is invalid");
-                Alert.setBounds(70,370,300,200);
-                Alert.setFont(new Font("Serif",Font.BOLD,20));
-                Alert.setForeground(Color.RED);
-                add(Alert);
-                repaint();
-            }else{
-                Alert.setText("successfully");
-                System.out.println("successfully");
+        loginButton.setBounds(120, 350, 100, 100);
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                userEmail = emailField.getText();
+                userPassword = PasswordField.getText();
+                if (!(Controller.getInstance().regexAuthenticate())) {
+                    alert.setText("Username or password is invalid");
+                    alert.setBounds(70, 370, 300, 200);
+                    alert.setFont(new Font("Serif", Font.BOLD, 20));
+                    alert.setForeground(Color.RED);
+                    add(alert);
+                } else {
+                    alert.setText("successfully");
+                    System.out.println("successfully");
+                    setVisible(false);
+                    loginButton.setVisible(false);
+                    MainFrame.getInstance().mainPanel.setVisible(true);
+
+                }
             }
         });
-        add(LoginButton);
-        setLayout(null);
+
+        add(loginButton);
+
+
+
+
+        int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
+        InputMap inputMap = getInputMap(condition);
+        ActionMap actionMap = getActionMap();
+
+        String enterKey = "enterKey";
+        inputMap.put(KeyStroke.getKeyStroke("ENTER"), enterKey);
+        actionMap.put(enterKey, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loginButton.doClick();
+            }
+        });
     }
+
     //singleton login view
     public static LoginView getInstance() {
         if (instance == null) {

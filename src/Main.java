@@ -1,5 +1,6 @@
 import manager.UserManager;
 import ui.MainFrame;
+
 import javax.swing.*;
 
 public class Main {
@@ -7,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame();
+              MainFrame.getInstance();
             }
         });
 

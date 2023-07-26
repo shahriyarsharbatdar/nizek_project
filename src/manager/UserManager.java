@@ -1,13 +1,24 @@
 package manager;
-import model.DataBase.SaveLoginInfo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import model.Repository;
+import model.User;
+import model.UserRole;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class UserManager {
-//    public void createUser(HashMap<String, ArrayList<User>> user){
-//        SaveLoginInfo.Repository.getUsers().add(user);
-//    }
+    final private Repository repository;
+
+    public UserManager() {
+        repository = Repository.getInstance();
+    }
+
+    public void addUser(String name, String lastName, String email, String password, UserRole role) {
+        User user = new User(name, lastName, email, password, role);
+        repository.getUsers().add(user);
+    }
+
 }
 
 

@@ -5,13 +5,16 @@ public class User {
     private String lastName;
     private String email;
     private String passWord;
+    private int userId;
     private UserRole userRole;
+    private static int USER_ID_COUNTER = 0;
 
     public User(String name, String lastName, String email, String passWord, UserRole userRole) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.passWord = passWord;
+        this.userId = USER_ID_COUNTER++;
         this.userRole = userRole;
     }
 
