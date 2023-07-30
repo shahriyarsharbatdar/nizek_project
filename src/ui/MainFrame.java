@@ -1,8 +1,6 @@
 package ui;
-
 import ui.login.LoginView;
 import ui.mainPage.MainPanel;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,10 +16,13 @@ public class MainFrame extends JFrame {
         setResizable(false);
         getContentPane().setBackground(new Color(20, 195, 142));
         LoginView loginView = LoginView.getInstance();
-        add(loginView);
+//        add(loginView);
+        MainPanel mainPanel1=new MainPanel();
+        add(mainPanel1);
         setLayout(null);
         setVisible(true);
         add(mainPanel);
+        mainPanel.setVisible(false);
     }
 
     public static MainFrame getInstance() {
@@ -31,6 +32,5 @@ public class MainFrame extends JFrame {
         return instance;
     }
 
-    // You can add other methods and functionalities here.
 
 }

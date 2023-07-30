@@ -3,16 +3,16 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Repository {
     private static Repository instance = null;
-    private ArrayList<User> users;
-    private HashMap<String, User> userVerify; // Use email as the key to connect to the User object
-
+    private HashMap<Integer, User> userMap; // Repository using HashMap to store users
+    private HashMap<String,User> userByEmail;
 
     private Repository() {
-        users = new ArrayList<>();
-        userVerify = new HashMap<>();
+        userMap = new HashMap<>();
+        userByEmail = new HashMap<>();
 
     }
 
@@ -27,19 +27,27 @@ public class Repository {
         return instance;
     }
 
-
-    public ArrayList<User> getUsers() {
-        return users;
+    public Map<Integer, User> getUserMap() {
+        return userMap;
     }
 
-    public User getUserByEmail(String email) {
-        return userVerify.get(email);
+    public void setUserMap(HashMap<Integer, User> userMap) {
+        this.userMap = userMap;
     }
 
-    public List<User> getAllUsers() {
-        return new ArrayList<>(userVerify.values());
+    public HashMap<String, User> getUserByEmail() {
+        return userByEmail;
     }
 
-    // Add other methods to retrieve users or perform other operations as needed
+    public void setUserByEmail(HashMap<String, User> userByEmail) {
+        this.userByEmail = userByEmail;
+    }
+
+    @Override
+    public String toString() {
+        return "Repository{" +
+                "userMap=" + userMap +
+                '}';
+    }
 }
 

@@ -1,7 +1,5 @@
 package ui.login;
-
 import ui.MainFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,19 +26,19 @@ public class LoginView extends JPanel {
         //login text
         loginText.setText("Login");
         loginText.setBounds(165, 25, 100, 200);
-        loginText.setFont(new Font("Serif", Font.BOLD, 30));
+        loginText.setFont(new Font("Arial", Font.BOLD, 30));
         add(loginText);
         //email text and field
         emailText.setText("Email");  //email text
         emailText.setBounds(70, 175, 100, 100);
-        emailText.setFont(new Font("Serif", Font.BOLD, 15));
+        emailText.setFont(new Font("Arial", Font.BOLD, 15));
         add(emailText);
         emailField.setBounds(120, 200, 200, 50);
         add(emailField);
         //pass text and field
         passwordText.setText("Password");  //pass text
         passwordText.setBounds(50, 270, 100, 50);
-        passwordText.setFont(new Font("Serif", Font.BOLD, 15));
+        passwordText.setFont(new Font("Arial", Font.BOLD, 15));
         add(passwordText);
         PasswordField.setBounds(120, 270, 200, 50);
         add(PasswordField);
@@ -94,6 +92,10 @@ public class LoginView extends JPanel {
             instance = new LoginView();
         }
         return instance;
+    }
+    private void showMainPage() {
+        setVisible(false); // Hide the login view
+        MainFrame.getInstance().mainPanel.setVisible(true); // Show the main page
     }
 
     public String getUserEmail() {

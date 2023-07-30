@@ -2,7 +2,6 @@ package ui.login;
 
 import manager.UserManager;
 import model.User;
-import model.UserRole;
 
 import java.util.regex.Pattern;
 
@@ -13,8 +12,6 @@ public class Controller {
     final private Pattern emailPattern = Pattern.compile(emailRegex);
     final private Pattern passwordPattern = Pattern.compile(passwordRegex);
     private static Controller instance = null;
-    User user = new User("ali", "asghari", "a@a.com", "12345678", UserRole.SUPER_ADMIN);
-
 
     private Controller() {
     }
@@ -49,8 +46,11 @@ public class Controller {
             System.out.println("Invalid password format. Password should be at least 8 characters long.");
             return false;
         }
-        if (LoginView.getInstance().userEmail.equals(user.getEmail()) && LoginView.getInstance().userPassword.equals(user.getPassWord()))
+        User user = UserManager.getInstance().getUserByEmail(LoginView.getInstance().userEmail);
+        if (user != null && LoginView.getInstance().userEmail.equals(UserManager.getInstance().getUserByEmail(LoginView.getInstance().userEmail).getEmail())
+                && LoginView.getInstance().userPassword.equals(UserManager.getInstance().getUserByEmail(LoginView.getInstance().userEmail).getPassword())) {
             System.out.println("Authentication successful!");
+        }
         return true;
     }
 

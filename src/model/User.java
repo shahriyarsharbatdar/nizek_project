@@ -4,18 +4,17 @@ public class User {
     private String name;
     private String lastName;
     private String email;
-    private String passWord;
+    private String password;
     private int userId;
-    private UserRole userRole;
-    private static int USER_ID_COUNTER = 0;
+    private UserRole role;
 
-    public User(String name, String lastName, String email, String passWord, UserRole userRole) {
+    public User(String name, String lastName, String email, String password, int userId, UserRole role) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.passWord = passWord;
-        this.userId = USER_ID_COUNTER++;
-        this.userRole = userRole;
+        this.password = password;
+        this.userId = userId;
+        this.role = role;
     }
 
     public String getName() {
@@ -42,21 +41,28 @@ public class User {
         this.email = email;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-
-    public UserRole getUserRole() {
-        return userRole;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     @Override
@@ -65,8 +71,9 @@ public class User {
                 "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", passWord='" + passWord + '\'' +
-                ", userRole=" + userRole +
-                '}';
+                ", password='" + password + '\'' +
+                ", userId=" + userId +
+                ", role=" + role +
+                '}'+'\n';
     }
 }
