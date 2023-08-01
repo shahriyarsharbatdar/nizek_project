@@ -2,13 +2,15 @@ package manager;
 
 import model.Project;
 import model.Repository;
+import model.User;
+
+import java.util.HashMap;
 
 public class ProjectManager {
     private static ProjectManager instance = null;
-    private Repository repository = new Repository();
+    Repository repository = Repository.getInstance();
 
     private ProjectManager() {
-        // repository = Repository.getInstance();
     }
 
     public static ProjectManager getInstance() {
@@ -23,7 +25,7 @@ public class ProjectManager {
     }
 
     public void addProject(String name, String details) {
-        int newProjectId = repository.getProjectMap().size() + 1;
+        int newProjectId = repository.getProjectMap().size();
         Project newProject = new Project(newProjectId, name, details);
         repository.getProjectMap().put(newProjectId, newProject);
         System.out.println(repository.getProjectMap());
@@ -38,5 +40,9 @@ public class ProjectManager {
 
     public Project getProjectById(int projectId) {
         return repository.getProjectMap().get(projectId);
+    }
+
+    public HashMap<Integer, Project> getAllProject() {
+        return repository.getProjectMap();
     }
 }

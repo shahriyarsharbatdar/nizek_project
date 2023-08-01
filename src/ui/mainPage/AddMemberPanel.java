@@ -1,5 +1,6 @@
 package ui.mainPage;
 
+import manager.UserManager;
 import model.Repository;
 import model.UserRole;
 
@@ -12,7 +13,7 @@ import java.awt.geom.Point2D;
 public class AddMemberPanel extends JPanel {
 
     JPanel buttonPanel = new JPanel();
-    Repository repository = new Repository();
+    Repository repository = Repository.getInstance();
 
 
     public AddMemberPanel() {

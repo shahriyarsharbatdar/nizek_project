@@ -1,7 +1,8 @@
 package ui.mainPage;
 
+import manager.ProjectManager;
+import manager.UserManager;
 import ui.login.Controller;
-import ui.login.LoginView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,16 +12,19 @@ import java.awt.geom.Point2D;
 
 public class MainPanel extends JPanel {
 
-    private AddMemberPanel addMemberPanel = new AddMemberPanel();
-    private ViewProfilePanel viewProfilePanel = new ViewProfilePanel();
-    private AddProjectPanel addProjectPanel = new AddProjectPanel();
-
+    private final AddMemberPanel addMemberPanel = new AddMemberPanel();
+    private final ViewProfilePanel viewProfilePanel = new ViewProfilePanel();
+    private final AddProjectPanel addProjectPanel = new AddProjectPanel();
+    private final UserTablePanel userTablePanel = new UserTablePanel(UserManager.getInstance());
+    private ProjectTablePanel projectTablePanel = new ProjectTablePanel(ProjectManager.getInstance());
+    ProjectManager projectManager =     ProjectManager.getInstance();
     private JPanel sidebarPanel;
 
     public MainPanel() {
         setPreferredSize(new Dimension(900, 700));
         setBackground(new Color(245, 245, 245)); // Light gray background
-
+        add(userTablePanel);
+        add(projectTablePanel);
         // Create the sidebar panel on the left
         sidebarPanel = new JPanel() {
             @Override
@@ -55,7 +59,9 @@ public class MainPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addMemberPanel.setVisible(false);
+                projectTablePanel.setVisible(false);
                 viewProfilePanel.setVisible(true);
+                userTablePanel.setVisible(false);
                 viewProfilePanel.setData(Controller.getInstance().getLoginUser());
             }
         });
@@ -70,6 +76,8 @@ public class MainPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 addMemberPanel.setVisible(true);
                 viewProfilePanel.setVisible(false);
+                projectTablePanel.setVisible(false);
+                userTablePanel.setVisible(false);
                 addProjectPanel.setVisible(false);
             }
         });
@@ -84,6 +92,8 @@ public class MainPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 addMemberPanel.setVisible(false);
                 viewProfilePanel.setVisible(false);
+                projectTablePanel.setVisible(false);
+                userTablePanel.setVisible(false);
                 addProjectPanel.setVisible(true);
             }
         });
@@ -99,6 +109,10 @@ public class MainPanel extends JPanel {
                 addMemberPanel.setVisible(false);
                 viewProfilePanel.setVisible(false);
                 addProjectPanel.setVisible(false);
+                userTablePanel.setVisible(true);
+                projectTablePanel.setVisible(true);
+                userTablePanel.refreshTable();
+                projectTablePanel.refreshTable();
             }
         });
         sidebarPanel.add(mainButton);
@@ -177,4 +191,6 @@ public class MainPanel extends JPanel {
         button.setMaximumSize(new Dimension(150, 30));
         return button;
     }
+
+
 }
