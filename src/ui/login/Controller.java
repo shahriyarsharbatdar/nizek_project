@@ -12,6 +12,7 @@ public class Controller {
     final private Pattern emailPattern = Pattern.compile(emailRegex);
     final private Pattern passwordPattern = Pattern.compile(passwordRegex);
     private static Controller instance = null;
+    private User loginUser;
 
     private Controller() {
     }
@@ -50,9 +51,12 @@ public class Controller {
         if (user != null && LoginView.getInstance().userEmail.equals(UserManager.getInstance().getUserByEmail(LoginView.getInstance().userEmail).getEmail())
                 && LoginView.getInstance().userPassword.equals(UserManager.getInstance().getUserByEmail(LoginView.getInstance().userEmail).getPassword())) {
             System.out.println("Authentication successful!");
+            loginUser = user;
         }
         return true;
     }
 
-
+    public User getLoginUser() {
+        return loginUser;
+    }
 }

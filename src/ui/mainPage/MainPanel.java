@@ -1,10 +1,8 @@
 package ui.mainPage;
 
-import model.UserRole;
-import ui.MainFrame;
 import ui.login.Controller;
+import ui.login.LoginView;
 
-import javax.management.relation.Role;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +11,8 @@ import java.awt.geom.Point2D;
 
 public class MainPanel extends JPanel {
     AddMemberPanel addMemberPanel = new AddMemberPanel();
+    ViewProfilePanel viewProfilePanel = new ViewProfilePanel();
+    AddProjectPanel addProjectPanel = new AddProjectPanel();
 
 
     JPanel sidebarPanel = new JPanel() {
@@ -37,7 +37,11 @@ public class MainPanel extends JPanel {
         // Create the sidebar panel on the left
         add(sidebarPanel);
         add(addMemberPanel);
+        add(viewProfilePanel);
+        add(addProjectPanel);
         addMemberPanel.setVisible(false);
+        viewProfilePanel.setVisible(false);
+        addProjectPanel.setVisible(false);
 
         sidebarPanel.setPreferredSize(new Dimension(220, 0)); // Set a fixed width for the sidebar
 
@@ -54,6 +58,39 @@ public class MainPanel extends JPanel {
         sidebarPanel.add(Box.createVerticalStrut(100)); // Vertical spacing
 
         // Create and add the rounded "View Profile" button
+        JButton mainButton = new JButton("main") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                if (getModel().isArmed()) {
+                    g.setColor(new Color(145, 206, 252)); // Darker blue when clicked
+
+                } else {
+                    g.setColor(new Color(66, 165, 245)); // Light blue button
+                }
+
+                g.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                super.paintComponent(g);
+            }
+
+        };
+        mainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addMemberPanel.setVisible(false);
+                viewProfilePanel.setVisible(false);
+                addProjectPanel.setVisible(false);
+            }
+        });
+        mainButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainButton.setForeground(Color.WHITE); // Set the font color to white
+        mainButton.setFocusPainted(false);
+        mainButton.setBorderPainted(false);
+        mainButton.setContentAreaFilled(false);
+        sidebarPanel.add(mainButton);
+
+// Add vertical spacing between "View Profile" and "Logout" buttons
+        sidebarPanel.add(Box.createVerticalStrut(20));
+
         JButton viewProfileButton = new JButton("View Profile") {
             @Override
             protected void paintComponent(Graphics g) {
@@ -68,11 +105,16 @@ public class MainPanel extends JPanel {
                 super.paintComponent(g);
             }
 
-            @Override
-            protected void paintBorder(Graphics g) {
-                // No border
-            }
         };
+        viewProfileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addMemberPanel.setVisible(false);
+                viewProfilePanel.setVisible(true);
+                viewProfilePanel.setData(Controller.getInstance().getLoginUser());
+
+            }
+        });
         viewProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         viewProfileButton.setForeground(Color.WHITE); // Set the font color to white
         viewProfileButton.setFocusPainted(false);
@@ -81,6 +123,39 @@ public class MainPanel extends JPanel {
         sidebarPanel.add(viewProfileButton);
 
 // Add vertical spacing between "View Profile" and "Logout" buttons
+        sidebarPanel.add(Box.createVerticalStrut(20));
+
+        JButton addProjectButton = new JButton("add project") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                if (getModel().isArmed()) {
+                    g.setColor(new Color(145, 206, 252)); // Darker blue when clicked
+
+                } else {
+                    g.setColor(new Color(66, 165, 245)); // Light blue button
+                }
+
+                g.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                super.paintComponent(g);
+            }
+
+        };
+        addProjectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addProjectPanel.setVisible(true);
+                addMemberPanel.setVisible(false);
+                viewProfilePanel.setVisible(false);
+            }
+        });
+        addProjectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addProjectButton.setForeground(Color.WHITE); // Set the font color to white
+        addProjectButton.setFocusPainted(false);
+        addProjectButton.setBorderPainted(false);
+        addProjectButton.setContentAreaFilled(false);
+        sidebarPanel.add(addProjectButton);
+
+// Add vertical spacing between "View Profile" and "add project" buttons
         sidebarPanel.add(Box.createVerticalStrut(20));
         // Create and add the rounded "Add Member" button
         JButton addMemberButton = new JButton("Add Member") {
@@ -96,17 +171,13 @@ public class MainPanel extends JPanel {
                 super.paintComponent(g);
             }
 
-
-
-            @Override
-            protected void paintBorder(Graphics g) {
-                // No border
-            }
         };
 
         addMemberButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                addMemberPanel.setVisible(false);
+                viewProfilePanel.setVisible(false);
                 addMemberPanel.setVisible(true);
             }
         });
@@ -136,11 +207,15 @@ public class MainPanel extends JPanel {
                 super.paintComponent(g);
             }
 
-            @Override
-            protected void paintBorder(Graphics g) {
-                // No border
-            }
         };
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                addMemberPanel.setVisible(false);
+//                viewProfilePanel.setVisible(false);
+//                LoginView.getInstance().setVisible(true);
+            }
+        });
         logoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         logoutButton.setForeground(Color.WHITE); // Set the font color to white
         logoutButton.setFocusPainted(false);
@@ -151,8 +226,9 @@ public class MainPanel extends JPanel {
         add(sidebarPanel, BorderLayout.WEST);
 
     }
+
     @Override
-    protected void paintComponent (Graphics g){
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
         int width = getWidth();

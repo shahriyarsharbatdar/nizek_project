@@ -1,21 +1,16 @@
 package ui.mainPage;
 
-import model.Repository;
-import model.UserRole;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 
-public class AddMemberPanel extends JPanel {
+public class AddProjectPanel extends JPanel {
 
     JPanel buttonPanel = new JPanel();
-    Repository repository = new Repository();
 
-
-    public AddMemberPanel() {
+    public AddProjectPanel() {
         setBounds(200, 0, 700, 700);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -24,78 +19,28 @@ public class AddMemberPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(20, 20, 20, 20); // Padding
 
-        // Add labels and text fields for user information
-        JLabel nameLabel = new JLabel("Name:");
+        // Add labels and text fields for project information
+        JLabel nameLabel = new JLabel("Project Name:");
         JTextField nameTextField = new JTextField(20);
-        nameTextField.setPreferredSize(new Dimension(100, 40));
+        nameTextField.setPreferredSize(new Dimension(200, 40));
         add(nameLabel, gbc);
         gbc.gridx++;
         add(nameTextField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
-        JLabel lastNameLabel = new JLabel("Last Name:");
-        JTextField lastNameTextField = new JTextField(20);
-        lastNameTextField.setPreferredSize(new Dimension(100, 40));
-        add(lastNameLabel, gbc);
+        JLabel detailsLabel = new JLabel("Project Details:");
+        JTextField detailsTextField = new JTextField(20);
+        detailsTextField.setPreferredSize(new Dimension(200, 40));
+        add(detailsLabel, gbc);
         gbc.gridx++;
-        add(lastNameTextField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy++;
-        JLabel emailLabel = new JLabel("Email:");
-        JTextField emailTextField = new JTextField(20);
-        emailTextField.setPreferredSize(new Dimension(100, 40));
-        add(emailLabel, gbc);
-        gbc.gridx++;
-        add(emailTextField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy++;
-        JLabel passwordLabel = new JLabel("Password:");
-        JTextField passwordField = new JTextField(20);
-        passwordField.setPreferredSize(new Dimension(100, 40));
-        add(passwordLabel, gbc);
-        gbc.gridx++;
-        add(passwordField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy++;
-        JLabel projectsLabel = new JLabel("Projects:");
-        JTextField projectsTextField = new JTextField(20);
-        projectsTextField.setPreferredSize(new Dimension(100, 40));
-        add(projectsLabel, gbc);
-        gbc.gridx++;
-        add(projectsTextField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy++;
-        JLabel roleLabel = new JLabel("Role:");
-        JComboBox<String> roleComboBox = new JComboBox<>();
-        for (UserRole role : UserRole.values()) {
-            String roleName = "";
-            switch (role) {
-                case PO:
-                    roleName = "Project Owner";
-                    break;
-                case DEVELOPER:
-                    roleName = "Developer";
-                    break;
-                case QA:
-                    roleName = "QA";
-                    break;
-            }
-            roleComboBox.addItem(roleName);
-        }
-        add(roleLabel, gbc);
-        gbc.gridx++;
-        add(roleComboBox, gbc);
+        add(detailsTextField, gbc);
 
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
         buttonPanel.setBackground(new Color(0, 0, 0, 0));
-        // Create the "Cancel" button
 
-        JButton cancelButton = new JButton("cancel") {
+        // Create the "Cancel" button
+        JButton cancelButton = new JButton("Cancel") {
             @Override
             protected void paintComponent(Graphics g) {
                 if (getModel().isArmed()) {
@@ -103,7 +48,6 @@ public class AddMemberPanel extends JPanel {
                 } else {
                     g.setColor(Color.red);
                 }
-
 
                 g.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
                 super.paintComponent(g);
@@ -137,7 +81,6 @@ public class AddMemberPanel extends JPanel {
                     g.setColor(Color.GREEN); // Darker blue when clicked
                 }
 
-
                 g.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
                 super.paintComponent(g);
             }
@@ -150,15 +93,7 @@ public class AddMemberPanel extends JPanel {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserRole selectedRole = null;
-                switch (roleComboBox.getSelectedIndex()){
-                    case 1 -> selectedRole=UserRole.PO;
-                    case 2 ->selectedRole=UserRole.QA;
-                    case 3 ->selectedRole=UserRole.DEVELOPER;
-                }
-            AddMemberPanelController.getInstance().addMember(nameTextField.getText(),lastNameTextField.getText()
-                    ,emailTextField.getText(),passwordField.getText(),selectedRole);
-                System.out.println(repository.getUserMap());
+            AddProjectController.getInstance().addProject(nameTextField.getText(),detailsTextField.getText());
             }
         });
         submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -172,7 +107,7 @@ public class AddMemberPanel extends JPanel {
         buttonPanel.add(cancelButton);
         buttonPanel.add(submitButton);
 
-        // Add the buttonPanel to the bottom of the addMemberView
+        // Add the buttonPanel to the bottom of the addProjectView
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.gridwidth = 2; // Make the buttons span across two columns
@@ -188,9 +123,9 @@ public class AddMemberPanel extends JPanel {
         int width = getWidth();
         int height = getHeight();
 
-        // Define the gradient colors for addMemberPanel
-        Color startColor = new Color(200, 240, 200); // Light green
-        Color endColor = new Color(220, 255, 220);   // Lighter green
+        // Define the gradient colors for addProjectPanel
+        Color startColor = new Color(154, 197, 244); // Light green
+        Color endColor = new Color(228, 237, 247);   // Lighter green
 
         // Create a gradient paint object from top to bottom
         GradientPaint gradientPaint = new GradientPaint(
@@ -203,9 +138,7 @@ public class AddMemberPanel extends JPanel {
         // Set the paint to the graphics object
         g2D.setPaint(gradientPaint);
 
-        // Fill the addMemberPanel with the gradient
+        // Fill the addProjectPanel with the gradient
         g2D.fillRect(0, 0, width, height);
     }
-
 }
-

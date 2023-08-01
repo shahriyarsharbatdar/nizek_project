@@ -15,14 +15,13 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(new Color(20, 195, 142));
-        LoginView loginView = LoginView.getInstance();
-//        add(loginView);
-        MainPanel mainPanel1=new MainPanel();
-        add(mainPanel1);
-        setLayout(null);
-        setVisible(true);
+//        LoginView loginView = LoginView.getInstance();
+        add(LoginView.getInstance());
+//        MainPanel mainPanel=new MainPanel();
         add(mainPanel);
         mainPanel.setVisible(false);
+        setLayout(null);
+        setVisible(true);
     }
 
     public static MainFrame getInstance() {

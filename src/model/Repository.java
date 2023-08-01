@@ -2,29 +2,18 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Repository {
-    private static Repository instance = null;
-    private HashMap<Integer, User> userMap; // Repository using HashMap to store users
-    private HashMap<String,User> userByEmail;
+    private HashMap<Integer, User> userMap; // user by id
+    private HashMap<String,User> userByEmail; // user by email
+    private HashMap<Integer,Project> projectMap = new HashMap<>(); //project by id
 
-    private Repository() {
+    public Repository() {
         userMap = new HashMap<>();
         userByEmail = new HashMap<>();
 
-    }
 
-    public static Repository getInstance() {
-        if (instance == null) {
-            synchronized (Repository.class) {
-                if (instance == null) {
-                    instance = new Repository();
-                }
-            }
-        }
-        return instance;
     }
 
     public Map<Integer, User> getUserMap() {
@@ -43,10 +32,16 @@ public class Repository {
         this.userByEmail = userByEmail;
     }
 
+    public HashMap<Integer, Project> getProjectMap() {
+        return projectMap;
+    }
+
     @Override
     public String toString() {
         return "Repository{" +
                 "userMap=" + userMap +
+                ", userByEmail=" + userByEmail +
+                ", projects=" + projectMap +
                 '}';
     }
 }

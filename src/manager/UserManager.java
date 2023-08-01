@@ -5,10 +5,10 @@ import model.UserRole;
 
 public class UserManager {
     private static UserManager instance = null;
-    private Repository repository;
+    Repository repository = new Repository();
 
     private UserManager() {
-        repository = Repository.getInstance();
+//        repository = Repository.getInstance();
     }
 
     public static UserManager getInstance() {
@@ -26,6 +26,7 @@ public class UserManager {
         int newUserId = repository.getUserMap().size() + 1;
         User newUser = new User(name, lastName, email, password, newUserId, role);
         repository.getUserMap().put(newUserId, newUser);
+        repository.getUserByEmail().put(newUser.getEmail(),newUser);
     }
 
     public void removeUser(User currentUser, int userIdToRemove) {
