@@ -16,9 +16,9 @@ public class MainPanel extends JPanel {
     private final ViewProfilePanel viewProfilePanel = new ViewProfilePanel();
     private final AddProjectPanel addProjectPanel = new AddProjectPanel();
     private final UserTablePanel userTablePanel = new UserTablePanel(UserManager.getInstance());
-    private ProjectTablePanel projectTablePanel = new ProjectTablePanel(ProjectManager.getInstance());
-    ProjectManager projectManager =     ProjectManager.getInstance();
-    private JPanel sidebarPanel;
+    private final ProjectTablePanel projectTablePanel = new ProjectTablePanel(ProjectManager.getInstance());
+    ProjectManager projectManager = ProjectManager.getInstance();
+    private final JPanel sidebarPanel;
 
     public MainPanel() {
         setPreferredSize(new Dimension(900, 700));

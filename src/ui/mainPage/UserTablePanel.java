@@ -1,7 +1,9 @@
 package ui.mainPage;
 
 import manager.UserManager;
+import manager.UserManagerSQL;
 import model.Repository;
+import model.User;
 import model.UserRole;
 
 import javax.swing.*;
@@ -9,6 +11,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.util.List;
 
 public class UserTablePanel extends JPanel implements TableModel {
     Repository repository = Repository.getInstance();
@@ -25,13 +28,12 @@ public class UserTablePanel extends JPanel implements TableModel {
         setBackground(Color.white);
         sp.setBounds(0,0,600,200);
         add(sp);
-
         jt.setModel(this);
     }
 
     @Override
     public int getRowCount() {
-        return userManager.getAllUsers().size();
+        return UserManagerSQL.getInstance().getUsers().size();
     }
 
     @Override
@@ -42,11 +44,10 @@ public class UserTablePanel extends JPanel implements TableModel {
     @Override
     public String getColumnName(int columnIndex) {
         return switch (columnIndex) {
-            case 0 -> "UserID";
-            case 1 -> "Name";
-            case 2 -> "LastName";
-            case 3 -> "Email";
-            case 4 -> "Role";
+            case 0 -> "Name";
+            case 1 -> "LastName";
+            case 2 -> "Email";
+            case 3 -> "Role";
             default -> "";
         };
     }
@@ -54,28 +55,24 @@ public class UserTablePanel extends JPanel implements TableModel {
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         return switch (columnIndex) {
-            case 0 -> Integer.class;
-            case 4 -> UserRole.class;
+            case 3 -> UserRole.class;
             default -> String.class;
         };
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return switch (columnIndex) {
-            case 0 -> false;
-            default -> true;
-        };
+        return false;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        List<User> users = UserManagerSQL.getInstance().getUsers();
         return switch (columnIndex) {
-            case 0 -> userManager.getAllUsers().get(rowIndex).getUserId();
-            case 1 -> userManager.getAllUsers().get(rowIndex).getName();
-            case 2 -> userManager.getAllUsers().get(rowIndex).getLastName();
-            case 3 -> userManager.getAllUsers().get(rowIndex).getEmail();
-            case 4 -> userManager.getAllUsers().get(rowIndex).getRole();
+            case 0 -> users.get(rowIndex).getName();
+            case 1 -> users.get(rowIndex).getLastName();
+            case 2 -> users.get(rowIndex).getEmail();
+            case 3 -> users.get(rowIndex).getRole();
             default -> "";
         };
     }
@@ -87,7 +84,6 @@ public class UserTablePanel extends JPanel implements TableModel {
 
     @Override
     public void addTableModelListener(TableModelListener l) {
-
     }
 
     @Override
@@ -96,6 +92,6 @@ public class UserTablePanel extends JPanel implements TableModel {
     }
 
     public void refreshTable(){
-        jt.tableChanged(new TableModelEvent(this));
+        jt.updateUI();
     }
 }

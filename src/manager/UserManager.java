@@ -5,6 +5,7 @@ import model.UserRole;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserManager {
     private static UserManager instance = null;
@@ -25,9 +26,7 @@ Repository repository = Repository.getInstance();
     }
 
     public void addUser(String name, String lastName, String email, String password, UserRole role) {
-        int newUserId = repository.getUserMap().size();
-        User newUser = new User(name, lastName, email, password, newUserId, role);
-        repository.getUserMap().put(newUserId, newUser);
+        User newUser = new User(name, lastName, email, password, role);
         repository.getUserByEmail().put(newUser.getEmail(),newUser);
     }
 
@@ -50,6 +49,8 @@ Repository repository = Repository.getInstance();
         }
     }
 
+
+
     public User getUserById(int userId) {
         return repository.getUserMap().get(userId);
     }
@@ -61,4 +62,5 @@ Repository repository = Repository.getInstance();
     public HashMap<Integer, User> getAllUsers() {
         return repository.getUserMap();
     }
+
 }

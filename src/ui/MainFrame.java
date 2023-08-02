@@ -1,15 +1,17 @@
 package ui;
-import ui.login.LoginView;
 import ui.mainPage.MainPanel;
+import ui.project.ProjectPageFrame;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
     public MainPanel mainPanel = new MainPanel();
+//    public ProjectPageFrame projectPagePanel = new ProjectPageFrame();
 
     private MainFrame() {
-        super("Login");
+        super("Nizek");
         setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -18,6 +20,7 @@ public class MainFrame extends JFrame {
         mainPanel.setBounds(0,0,getWidth(),getHeight());
 //        add(LoginView.getInstance());
         add(mainPanel);
+//        add(projectPagePanel);
         mainPanel.setVisible(true);
         setLayout(null);
         setVisible(true);

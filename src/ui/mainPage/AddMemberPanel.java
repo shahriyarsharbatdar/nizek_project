@@ -1,6 +1,6 @@
 package ui.mainPage;
 
-import manager.UserManager;
+//import manager.UserManager;
 import model.Repository;
 import model.UserRole;
 
@@ -160,6 +160,8 @@ public class AddMemberPanel extends JPanel {
             AddMemberPanelController.getInstance().addMember(nameTextField.getText(),lastNameTextField.getText()
                     ,emailTextField.getText(),passwordField.getText(),selectedRole);
                 System.out.println(repository.getUserMap());
+                AddMemberPanelController.getInstance().addMemberSql(nameTextField.getText(),lastNameTextField.getText()
+                        ,emailTextField.getText(),passwordField.getText(),selectedRole);
             }
         });
         submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);

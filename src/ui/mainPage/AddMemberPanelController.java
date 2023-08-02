@@ -1,6 +1,7 @@
 package ui.mainPage;
 
 import manager.UserManager;
+import manager.UserManagerSQL;
 import model.UserRole;
 
 public class AddMemberPanelController {
@@ -13,6 +14,7 @@ public class AddMemberPanelController {
 //    final private Pattern lastNamePattern = Pattern.compile(lastNameRegex);
 //    final private Pattern emailPattern = Pattern.compile(emailRegex);
     UserManager userManager = UserManager.getInstance();
+    UserManagerSQL userManagerSQL = UserManagerSQL.getInstance();
     private static AddMemberPanelController instance = null;
 
     private AddMemberPanelController() {
@@ -28,6 +30,9 @@ public class AddMemberPanelController {
 
     public void addMember(String name, String lastName, String email, String password, UserRole role) {
         userManager.addUser(name, lastName, email, password, role);
+    }
+    public void addMemberSql(String name, String lastName, String email, String password, UserRole role){
+        UserManagerSQL.getInstance().addUser(name,lastName,email,password,role);
     }
 
 
