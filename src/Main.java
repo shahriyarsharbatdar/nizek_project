@@ -1,5 +1,6 @@
 import manager.UserManager;
 import manager.UserManagerSQL;
+import model.User;
 import model.UserRole;
 import ui.MainFrame;
 
@@ -15,15 +16,10 @@ public class Main {
             }
         });
 
-//        UserManager.getInstance().addUser("ali", "asghari", "a@a.com", "12345678", UserRole.SUPER_ADMIN);
-//        UserManager.getInstance().addUser("shahriyar", "sharbati", "a@2a.com", "1234", UserRole.PO);
-//        UserManager.getInstance().addUser("shahriyar", "sharbati", "a@2a.com", "1234", UserRole.PO);
-//        UserManager.getInstance().addUser("shahriyar", "sharbati", "a@2a.com", "1234", UserRole.PO);
-//        UserManager.getInstance().addUser("shahriyar", "sharbati", "a@2a.com", "1234", UserRole.PO);
-//        UserManager.getInstance().addUser("shahriyar", "sharbati", "a@2a.com", "1234", UserRole.PO);
-//        UserManager.getInstance().addUser("shahriyar", "sharbati", "a@2a.com", "1234", UserRole.PO);
-//        UserManager.getInstance().addUser("mostafa", "sharbati", "a@2a.com", "1234", UserRole.PO);
-            UserManagerSQL.getInstance().addUser("aa","aa","a@a.com","12345678",UserRole.SUPER_ADMIN);
+        User user=new User("aa","aa","a@a.com","12345678",UserRole.SUPER_ADMIN);
+        if (user == null){
+            UserManagerSQL.getInstance().addUser(user.getName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getRole());
+        }
 
 
     }
