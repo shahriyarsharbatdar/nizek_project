@@ -4,6 +4,7 @@ import manager.UserManagerSQL;
 import model.User;
 import model.UserRole;
 
+import javax.management.relation.Role;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +17,7 @@ public class EditUserPanel extends JFrame {
     JTextField lastNameTextField = new JTextField();
     JTextField emailTextField = new JTextField();
     JPasswordField passwordField = new JPasswordField();
-    JTextField roleTextField = new JTextField();
+    JComboBox<UserRole> roleTextField = new JComboBox<>(UserRole.values());
 
     // Create submit , cancel and remove buttons
 
@@ -175,11 +176,11 @@ public class EditUserPanel extends JFrame {
         roleLabel.setBounds(labelX, labelY + 4 * verticalSpacing, labelWidth, labelHeight);
         formPanel.add(roleLabel);
 
-        roleTextField.setText(this.user.getRole().toString());
+        roleTextField.setSelectedItem(user.getRole());
         roleTextField.setBounds(textFieldX, textFieldY + 4 * verticalSpacing, textFieldWidth, textFieldHeight);
         formPanel.add(roleTextField);
 
-
+        //submit button detail
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -187,7 +188,7 @@ public class EditUserPanel extends JFrame {
                 String lastName = lastNameTextField.getText();
                 String email = emailTextField.getText();
                 String password = passwordField.getText();
-                String role = roleTextField.getText();
+                UserRole role = (UserRole) roleTextField.getSelectedItem();
                 UserManagerSQL.getInstance().editUser(email, name, lastName, password, role);
 
             }
@@ -209,7 +210,7 @@ public class EditUserPanel extends JFrame {
         });
         formPanel.add(submitButton);
 
-
+        //cancel button detail
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -236,12 +237,12 @@ public class EditUserPanel extends JFrame {
         // Add the form panel to the frame
         add(formPanel);
 
-
-
+        //remove button detail
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserManagerSQL.getInstance().removeUser(user.getEmail());
+                EditUserPanel.this.dispose();
             }
         });
 

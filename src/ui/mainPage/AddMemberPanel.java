@@ -1,6 +1,5 @@
 package ui.mainPage;
 
-//import manager.UserManager;
 import model.Repository;
 import model.UserRole;
 
@@ -152,16 +151,16 @@ public class AddMemberPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserRole selectedRole = null;
-                switch (roleComboBox.getSelectedIndex()){
-                    case 1 -> selectedRole=UserRole.PO;
-                    case 2 ->selectedRole=UserRole.QA;
-                    case 3 ->selectedRole=UserRole.DEVELOPER;
+                switch (roleComboBox.getSelectedIndex()) {
+                    case 1 -> selectedRole = UserRole.PO;
+                    case 2 -> selectedRole = UserRole.QA;
+                    case 3 -> selectedRole = UserRole.DEVELOPER;
                 }
-            AddMemberPanelController.getInstance().addMember(nameTextField.getText(),lastNameTextField.getText()
-                    ,emailTextField.getText(),passwordField.getText(),selectedRole);
+                AddMemberPanelController.getInstance().addMember(nameTextField.getText(), lastNameTextField.getText()
+                        , emailTextField.getText(), passwordField.getText(), selectedRole);
                 System.out.println(repository.getUserMap());
-                AddMemberPanelController.getInstance().addMemberSql(nameTextField.getText(),lastNameTextField.getText()
-                        ,emailTextField.getText(),passwordField.getText(),selectedRole);
+                AddMemberPanelController.getInstance().addMemberSql(nameTextField.getText(), lastNameTextField.getText()
+                        , emailTextField.getText(), passwordField.getText(), selectedRole);
             }
         });
         submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);

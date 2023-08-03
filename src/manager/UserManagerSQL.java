@@ -46,7 +46,7 @@ public class UserManagerSQL {
 
     // Method to edit a user's information in the database
 
-    public void editUser(String email, String name, String lastname, String password, String role) {
+    public void editUser(String email, String name, String lastname, String password, UserRole role) {
 
         try {
             String query = "UPDATE user SET name=?, lastname=?, password=?, role=? WHERE email=?";
