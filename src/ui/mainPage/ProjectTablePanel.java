@@ -69,19 +69,15 @@ public class ProjectTablePanel extends JPanel implements TableModel {
     @Override
     public String getColumnName(int columnIndex) {
         return switch (columnIndex) {
-            case 0 -> "ProjectID";
-            case 1 -> "Name";
-            case 2 -> "Description";
+            case 0 -> "Name";
+            case 1 -> "Description";
             default -> "";
         };
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return switch (columnIndex) {
-            case 0 -> Integer.class;
-            default -> String.class;
-        };
+        return String.class;
     }
 
     @Override
@@ -93,9 +89,8 @@ public class ProjectTablePanel extends JPanel implements TableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return switch (columnIndex) {
-            case 0 -> projectManager.getAllProject().get(rowIndex).getProjectId();
-            case 1 -> projectManager.getAllProject().get(rowIndex).getName();
-            case 2 -> projectManager.getAllProject().get(rowIndex).getDescription();
+            case 0 -> projectManager.getAllProject().get(rowIndex).getName();
+            case 1 -> projectManager.getAllProject().get(rowIndex).getDescription();
             default -> "";
         };
     }

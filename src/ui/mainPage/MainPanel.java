@@ -17,7 +17,7 @@ public class MainPanel extends JPanel {
     private final AddProjectPanel addProjectPanel = new AddProjectPanel();
     private final UserTablePanel userTablePanel = new UserTablePanel(UserManager.getInstance());
     private final ProjectTablePanel projectTablePanel = new ProjectTablePanel(ProjectManager.getInstance());
-    ProjectManager projectManager = ProjectManager.getInstance();
+//    ProjectManager projectManager = ProjectManager.getInstance();
     private final JPanel sidebarPanel;
 
     public MainPanel() {

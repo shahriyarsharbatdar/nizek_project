@@ -90,6 +90,60 @@ public class UserManagerSQL {
         return users;
     }
 
+        // Method to search the database by email and password and return true if found
+        public boolean authenticate(String email, String password) {
+            try {
+                String query = "SELECT * FROM user WHERE email=? AND password=?";
+                PreparedStatement statement = dataBase.getConnection().prepareStatement(query);
+                statement.setString(1, email);
+                statement.setString(2, password);
+                ResultSet resultSet = statement.executeQuery();
+                return resultSet.next(); // If a record is found, returns true; otherwise, returns false
+            } catch (SQLException e) {
+                e.printStackTrace(); // Or use logger to log the exception
+            }
+
+            return false; // Return false if an exception occurred
+        }
+
+    public User getUserByEmail(String email) {
+        try {
+            String query = "SELECT * FROM user WHERE email=?";
+            PreparedStatement statement = dataBase.getConnection().prepareStatement(query);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String lastname = resultSet.getString("lastname");
+                String password = resultSet.getString("password");
+                UserRole role = UserRole.valueOf(resultSet.getString("role")); // Assuming UserRole is an enum
+
+                return new User(name, lastname, email, password, role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Or use logger to log the exception
+        }
+
+        return null; // Return null if no user is found for the given email
+    }
+
+    public boolean isDatabaseEmpty() {
+        try {
+            String query = "SELECT COUNT(*) AS count FROM user";
+            PreparedStatement statement = dataBase.getConnection().prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt("count");
+                return count == 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Or use logger to log the exception
+        }
+
+        return true; // Return true if an exception occurred or if no count is retrieved from the database
+    }
+
 
 }
 
