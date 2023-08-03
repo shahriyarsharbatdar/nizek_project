@@ -2,33 +2,76 @@ package ui.mainPage;
 
 import manager.UserManager;
 import manager.UserManagerSQL;
-import model.Repository;
 import model.User;
 import model.UserRole;
+import ui.project.ProjectPageFrame;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 public class UserTablePanel extends JPanel implements TableModel {
-    Repository repository = Repository.getInstance();
 
     JTable jt = new JTable();
     JScrollPane sp = new JScrollPane(jt);
-    UserManager userManager;
+    UserManagerSQL userManagerSQL;
+    private int selectedRow = -1; // Initialize to -1 to indicate no row is selected initially
+
+    private String selectedEmail;
+    private User selctedUser;
 
 
-    public UserTablePanel(UserManager userManager) {
-        this.userManager = userManager;
+
+    public UserTablePanel(UserManagerSQL userManagerSQL) {
+        this.userManagerSQL = userManagerSQL;
         setLayout(null);
         setBounds(250,100,600,200);
         setBackground(Color.white);
         sp.setBounds(0,0,600,200);
         add(sp);
         jt.setModel(this);
+
+        jt.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                selectedRow = jt.getSelectedRow();
+                if (selectedRow >= 0) {
+                    // Row is selected, get the email from the selected row
+                    selectedEmail = (String) getValueAt(selectedRow, 2);}
+                EditUserPanelController editUserPanelController = new EditUserPanelController();
+                  selctedUser = editUserPanelController.userInfo(selectedEmail);
+
+                EditUserPanel editUserPanel = new EditUserPanel(selctedUser);
+                editUserPanel.setVisible(true);
+//                selectedProject = jt.getSelectedRow();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+
+        });
     }
 
     @Override
@@ -94,4 +137,5 @@ public class UserTablePanel extends JPanel implements TableModel {
     public void refreshTable(){
         jt.updateUI();
     }
+    
 }

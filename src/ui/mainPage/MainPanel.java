@@ -2,6 +2,7 @@ package ui.mainPage;
 
 import manager.ProjectManager;
 import manager.UserManager;
+import manager.UserManagerSQL;
 import ui.login.Controller;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ public class MainPanel extends JPanel {
     private final AddMemberPanel addMemberPanel = new AddMemberPanel();
     private final ViewProfilePanel viewProfilePanel = new ViewProfilePanel();
     private final AddProjectPanel addProjectPanel = new AddProjectPanel();
-    private final UserTablePanel userTablePanel = new UserTablePanel(UserManager.getInstance());
+    private final UserTablePanel userTablePanel = new UserTablePanel(UserManagerSQL.getInstance());
     private final ProjectTablePanel projectTablePanel = new ProjectTablePanel(ProjectManager.getInstance());
 //    ProjectManager projectManager = ProjectManager.getInstance();
     private final JPanel sidebarPanel;
