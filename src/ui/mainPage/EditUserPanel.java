@@ -107,8 +107,10 @@ public class EditUserPanel extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
+
         // Create the form panel
         JPanel formPanel = new JPanel() {
+
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2D = (Graphics2D) g;
@@ -123,7 +125,10 @@ public class EditUserPanel extends JFrame {
                 g2D.setPaint(gradientPaint);
                 g2D.fillRect(0, 0, width, height);
             }
+
         };
+        this.setupEnterKeyBinding();
+
         formPanel.setBounds(0, 0, 700, 500);
         formPanel.setLayout(null);
 
@@ -189,7 +194,9 @@ public class EditUserPanel extends JFrame {
                 String email = emailTextField.getText();
                 String password = passwordField.getText();
                 UserRole role = (UserRole) roleTextField.getSelectedItem();
-                UserManagerSQL.getInstance().editUser(email, name, lastName, password, role);
+
+                EditUserPanelController.getInstance().setNewUser(email, name, lastName, password, role);
+                EditUserPanel.this.dispose();
 
             }
         });
@@ -263,5 +270,17 @@ public class EditUserPanel extends JFrame {
         });
         formPanel.add(removeButton);
 
+    }
+    public void setupEnterKeyBinding() {
+        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = getRootPane().getActionMap();
+        String enterKey = "enterKey";
+        inputMap.put(KeyStroke.getKeyStroke("ENTER"), enterKey);
+        actionMap.put(enterKey, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                submitButton.doClick(); // Replace 'okButton' with the actual reference to your button
+            }
+        });
     }
 }

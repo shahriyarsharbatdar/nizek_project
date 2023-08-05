@@ -1,6 +1,5 @@
 package ui.mainPage;
 
-import model.Repository;
 import model.UserRole;
 
 import javax.swing.*;
@@ -12,8 +11,6 @@ import java.awt.geom.Point2D;
 public class AddMemberPanel extends JPanel {
 
     JPanel buttonPanel = new JPanel();
-    Repository repository = Repository.getInstance();
-
 
     public AddMemberPanel() {
         setBounds(200, 0, 700, 700);
@@ -156,9 +153,6 @@ public class AddMemberPanel extends JPanel {
                     case 2 -> selectedRole = UserRole.QA;
                     case 3 -> selectedRole = UserRole.DEVELOPER;
                 }
-                AddMemberPanelController.getInstance().addMember(nameTextField.getText(), lastNameTextField.getText()
-                        , emailTextField.getText(), passwordField.getText(), selectedRole);
-                System.out.println(repository.getUserMap());
                 AddMemberPanelController.getInstance().addMemberSql(nameTextField.getText(), lastNameTextField.getText()
                         , emailTextField.getText(), passwordField.getText(), selectedRole);
             }

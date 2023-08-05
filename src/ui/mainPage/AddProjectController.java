@@ -1,13 +1,11 @@
 package ui.mainPage;
 
-import manager.ProjectManager;
-import manager.UserManager;
-import model.UserRole;
+import manager.ProjectManagerSQL;
 
 public class AddProjectController {
-    AddProjectPanel addProjectPanel = new AddProjectPanel();
-    ProjectManager projectManager = ProjectManager.getInstance();
+    ProjectManagerSQL projectManagerSQL = ProjectManagerSQL.getInstance();
     private static AddProjectController instance = null;
+
     private AddProjectController() {
 
     }
@@ -18,8 +16,9 @@ public class AddProjectController {
         }
         return instance;
     }
-    public void addProject(String name, String detail) {
-        projectManager.addProject(name, detail);
+
+    public void addProjectSql(String name, String description) {
+        projectManagerSQL.addProject(name, description);
     }
 
 }

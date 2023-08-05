@@ -1,17 +1,17 @@
 package ui.project;
 
-import manager.ProjectManager;
+import manager.ProjectManagerSQL;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ProjectPageFrame extends JFrame {
     JPanel topPanel = new JPanel();
-    ProjectManager projectManager;
+    ProjectManagerSQL projectManagerSQL;
     int selectedProject;
 
-    public ProjectPageFrame(ProjectManager projectManager, int selectedProject) {
-        this.projectManager = projectManager;
+    public ProjectPageFrame(ProjectManagerSQL projectManagerSQL, int selectedProject) {
+        this.projectManagerSQL = projectManagerSQL;
         this.selectedProject = selectedProject;
         System.out.println(selectedProject);
         setSize( 900, 700);

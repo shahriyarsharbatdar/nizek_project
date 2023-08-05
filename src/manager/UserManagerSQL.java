@@ -82,7 +82,6 @@ public class UserManagerSQL {
             PreparedStatement statement = dataBase.getConnection().prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String lastname = resultSet.getString("lastname");
                 String email = resultSet.getString("email");

@@ -93,7 +93,7 @@ public class AddProjectPanel extends JPanel {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            AddProjectController.getInstance().addProject(nameTextField.getText(),detailsTextField.getText());
+            AddProjectController.getInstance().addProjectSql(nameTextField.getText(),detailsTextField.getText());
             }
         });
         submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);

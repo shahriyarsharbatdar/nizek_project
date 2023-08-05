@@ -1,4 +1,3 @@
-import manager.UserManager;
 import manager.UserManagerSQL;
 import model.User;
 import model.UserRole;

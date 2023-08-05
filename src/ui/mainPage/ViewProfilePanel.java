@@ -1,6 +1,5 @@
 package ui.mainPage;
 
-import model.Repository;
 import model.User;
 import model.UserRole;
 import ui.login.Controller;

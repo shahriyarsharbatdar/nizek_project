@@ -10,10 +10,9 @@ public class Project {
     private ArrayList<User> users;
     private ArrayList<Issue> issues;
 
-    public Project(int projectId,String name, String description) {
+    public Project(String name, String description) {
         this.name = name;
         this.description = description;
-        this.projectId = projectId;
         this.boards = new ArrayList<>();
         this.users = new ArrayList<>();
         this.issues = new ArrayList<>();

@@ -1,13 +1,10 @@
 package ui.mainPage;
 
-import manager.UserManager;
 import manager.UserManagerSQL;
 import model.User;
 import model.UserRole;
-import ui.project.ProjectPageFrame;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -43,7 +40,7 @@ public class UserTablePanel extends JPanel implements TableModel {
                 if (selectedRow >= 0) {
                     // Row is selected, get the email from the selected row
                     selectedEmail = (String) getValueAt(selectedRow, 2);}
-                EditUserPanelController editUserPanelController = new EditUserPanelController();
+                EditUserPanelController editUserPanelController = EditUserPanelController.getInstance();
                   selctedUser = editUserPanelController.userInfo(selectedEmail);
 
                 EditUserPanel editUserPanel = new EditUserPanel(selctedUser);
@@ -137,5 +134,5 @@ public class UserTablePanel extends JPanel implements TableModel {
     public void refreshTable(){
         jt.updateUI();
     }
-    
+
 }

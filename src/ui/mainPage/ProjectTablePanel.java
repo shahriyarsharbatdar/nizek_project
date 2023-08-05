@@ -1,6 +1,6 @@
 package ui.mainPage;
 
-import manager.ProjectManager;
+import manager.ProjectManagerSQL;
 import ui.project.ProjectPageFrame;
 
 import javax.swing.*;
@@ -14,11 +14,11 @@ public class ProjectTablePanel extends JPanel implements TableModel {
 
     JTable jt = new JTable();
     JScrollPane sp = new JScrollPane(jt);
-    ProjectManager projectManager;
+    ProjectManagerSQL projectManagerSQL;
     int selectedProject ;
 
-    public ProjectTablePanel(ProjectManager projectManager) {
-        this.projectManager = projectManager;
+    public ProjectTablePanel(ProjectManagerSQL projectManagerSQL) {
+        this.projectManagerSQL = projectManagerSQL;
         setLayout(null);
         setBounds(250, 400, 600, 200);
         setBackground(Color.white);
@@ -29,7 +29,7 @@ public class ProjectTablePanel extends JPanel implements TableModel {
         jt.addMouseListener(new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            ProjectPageFrame projectPage = new ProjectPageFrame(projectManager, jt.getSelectedRow());
+            ProjectPageFrame projectPage = new ProjectPageFrame(projectManagerSQL, jt.getSelectedRow());
             selectedProject = jt.getSelectedRow();
         }
 
@@ -58,7 +58,7 @@ public class ProjectTablePanel extends JPanel implements TableModel {
 
     @Override
     public int getRowCount() {
-        return projectManager.getAllProject().size();
+        return projectManagerSQL.getProjects().size();
     }
 
     @Override
@@ -89,8 +89,8 @@ public class ProjectTablePanel extends JPanel implements TableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return switch (columnIndex) {
-            case 0 -> projectManager.getAllProject().get(rowIndex).getName();
-            case 1 -> projectManager.getAllProject().get(rowIndex).getDescription();
+            case 0 -> projectManagerSQL.getProjects().get(rowIndex).getName();
+            case 1 -> projectManagerSQL.getProjects().get(rowIndex).getDescription();
             default -> "";
         };
     }

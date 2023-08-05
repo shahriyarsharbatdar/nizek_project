@@ -1,6 +1,5 @@
 package ui.login;
 
-import manager.UserManager;
 import manager.UserManagerSQL;
 import model.User;
 
