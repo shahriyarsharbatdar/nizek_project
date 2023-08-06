@@ -23,13 +23,12 @@ public class UserTablePanel extends JPanel implements TableModel {
     private User selctedUser;
 
 
-
     public UserTablePanel(UserManagerSQL userManagerSQL) {
         this.userManagerSQL = userManagerSQL;
         setLayout(null);
-        setBounds(250,100,600,200);
+        setBounds(250, 100, 600, 200);
         setBackground(Color.white);
-        sp.setBounds(0,0,600,200);
+        sp.setBounds(0, 0, 600, 200);
         add(sp);
         jt.setModel(this);
 
@@ -39,13 +38,13 @@ public class UserTablePanel extends JPanel implements TableModel {
                 selectedRow = jt.getSelectedRow();
                 if (selectedRow >= 0) {
                     // Row is selected, get the email from the selected row
-                    selectedEmail = (String) getValueAt(selectedRow, 2);}
+                    selectedEmail = (String) getValueAt(selectedRow, 2);
+                }
                 EditUserPanelController editUserPanelController = EditUserPanelController.getInstance();
-                  selctedUser = editUserPanelController.userInfo(selectedEmail);
+                selctedUser = editUserPanelController.userInfo(selectedEmail);
 
                 EditUserPanel editUserPanel = new EditUserPanel(selctedUser);
                 editUserPanel.setVisible(true);
-//                selectedProject = jt.getSelectedRow();
             }
 
             @Override
@@ -131,7 +130,7 @@ public class UserTablePanel extends JPanel implements TableModel {
 
     }
 
-    public void refreshTable(){
+    public void refreshTable() {
         jt.updateUI();
     }
 

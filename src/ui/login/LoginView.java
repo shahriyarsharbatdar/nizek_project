@@ -10,8 +10,8 @@ public class LoginView extends JPanel {
     JButton loginButton = new JButton("Login");
     JLabel loginText = new JLabel();
     JLabel emailText = new JLabel();
-    JTextField emailField = new JTextField();
-    JLabel passwordText = new JLabel();
+    JTextField emailField = new JTextField("a@a.com");
+    JLabel passwordText = new JLabel("12345678");
     JPasswordField PasswordField = new JPasswordField();
 
     JLabel alert = new JLabel();

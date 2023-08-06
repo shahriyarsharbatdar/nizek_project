@@ -62,4 +62,26 @@ public class ProjectManagerSQL {
 
         return projects;
     }
+
+    public Project getProjectByName(String projectName) {
+        try {
+            String query = "SELECT * FROM project WHERE name = ?";
+            PreparedStatement statement = dataBase.getConnection().prepareStatement(query);
+            statement.setString(1, projectName);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("description");
+
+                return new Project(name, description);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Or use logger to log the exception
+        }
+
+        return null; // Project not found with the given name
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package ui.mainPage;
 
 import manager.ProjectManagerSQL;
+import model.Project;
+import model.User;
 import ui.project.ProjectPageFrame;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ public class ProjectTablePanel extends JPanel implements TableModel {
     JTable jt = new JTable();
     JScrollPane sp = new JScrollPane(jt);
     ProjectManagerSQL projectManagerSQL;
-    int selectedProject ;
+    private Project selectedProject;
 
     public ProjectTablePanel(ProjectManagerSQL projectManagerSQL) {
         this.projectManagerSQL = projectManagerSQL;
@@ -27,11 +29,20 @@ public class ProjectTablePanel extends JPanel implements TableModel {
 
         jt.setModel(this);
         jt.addMouseListener(new MouseListener() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            ProjectPageFrame projectPage = new ProjectPageFrame(projectManagerSQL, jt.getSelectedRow());
-            selectedProject = jt.getSelectedRow();
-        }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = jt.getSelectedRow();
+                if (selectedRow >= 0) {
+                    String projectName = (String) getValueAt(selectedRow, 0);
+                    selectedProject = projectManagerSQL.getProjectByName(projectName);
+                    if (selectedProject != null) {
+                        // Open the project page for the selected project
+                        ProjectPageFrame projectPage = new ProjectPageFrame(projectManagerSQL, selectedProject.getProjectId());
+                        projectPage.setVisible(true);
+                    }
+                }
+            }
+
 
             @Override
             public void mousePressed(MouseEvent e) {
