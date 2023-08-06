@@ -83,5 +83,24 @@ public class ProjectManagerSQL {
         return null; // Project not found with the given name
     }
 
+    public void assignUserToProject(int userId, int projectId) {
+        try {
+            // Prepare the SQL query to insert the assignment into the user_project table
+            String query = "INSERT INTO `nizekproject`.`user_project` (`user_id`, `project_id`) VALUES (?, ?);";
+
+            // Create a PreparedStatement to safely execute the query
+            PreparedStatement statement = dataBase.getConnection().prepareStatement(query);
+
+            // Set the user_id and project_id values in the PreparedStatement
+            statement.setInt(1, userId);
+            statement.setInt(2, projectId);
+
+            // Execute the query to insert the assignment
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error assigning user to project: " + e.getMessage());
+        }
+    }
+
 
 }

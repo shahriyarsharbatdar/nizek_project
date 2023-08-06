@@ -1,6 +1,9 @@
 package ui.project;
 
+import manager.ProjectManagerSQL;
+import manager.UserManagerSQL;
 import model.Project;
+import model.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +13,8 @@ public class InfoPanel extends JPanel {
     JTextArea projectName = new JTextArea();
     JLabel detailText = new JLabel("Detail");
     JTextArea projectDetail = new JTextArea();
+    JComboBox allUsersBox = new JComboBox<>();
+
 
     public InfoPanel(Project project) {
         setBounds(0, 50, 900, 650);
@@ -40,10 +45,19 @@ public class InfoPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(projectDetail);
         scrollPane.setBounds(100, 400, 200, 150);
         add(scrollPane);
+
+        allUsersBox.setBounds(600,60,200,100);
+        add(allUsersBox);
         setProjectInfo(project);
+
+        for (User user :UserManagerSQL.getInstance().getUsers()) {
+            allUsersBox.addItem(user.getName());
+        }
+        UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex());
+
     }
 
-    // Sample method to set project name and detail
+    // method to set project name and detail
     public void setProjectInfo(Project project) {
         projectName.setText(project.getName());
         projectDetail.setText(project.getDescription());
