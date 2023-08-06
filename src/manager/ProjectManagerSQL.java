@@ -51,9 +51,9 @@ public class ProjectManagerSQL {
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String description = resultSet.getString("description");
+                int projectId = resultSet.getInt("idproject");
 
-
-                Project project = new Project(name,description);
+                Project project = new Project(name, description,projectId);
                 projects.add(project);
             }
         } catch (SQLException e) {
@@ -73,8 +73,9 @@ public class ProjectManagerSQL {
             if (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String description = resultSet.getString("description");
+                int projectId = resultSet.getInt("idproject");
 
-                return new Project(name, description);
+                return new Project(name, description,projectId);
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Or use logger to log the exception

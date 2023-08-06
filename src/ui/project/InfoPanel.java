@@ -17,6 +17,7 @@ public class InfoPanel extends JPanel {
     JTextArea projectDetail = new JTextArea();
     JLabel allUsers = new JLabel("All members");
     JComboBox allUsersBox = new JComboBox<>();
+    ProjectManagerSQL projectManagerSQL = ProjectManagerSQL.getInstance();
 
 
     public InfoPanel(Project project) {
@@ -49,19 +50,17 @@ public class InfoPanel extends JPanel {
         scrollPane.setBounds(100, 400, 200, 150);
         add(scrollPane);
 
-        allUsers.setBounds(710,30,100,50);
+        allUsers.setBounds(710, 30, 100, 50);
         add(allUsers);
 
-        allUsersBox.setBounds(600,70,200,25);
+        allUsersBox.setBounds(600, 70, 200, 25);
         add(allUsersBox);
         setProjectInfo(project);
 
-        for (User user :UserManagerSQL.getInstance().getUsers()) {
+        for (User user : UserManagerSQL.getInstance().getUsers()) {
             allUsersBox.addItem(user.getName());
         }
         UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex());
-
-
 
 
         JButton addUserToProjectButton = createRoundedButton("Add");
@@ -69,9 +68,8 @@ public class InfoPanel extends JPanel {
         addUserToProjectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add the selected user to the project
-                String selectedUserName = allUsersBox.getSelectedItem().toString();
-                // Implement the logic to add the user to the project
+                projectManagerSQL.assignUserToProject(UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex()).getUserId()
+                        ,project.getProjectId());
             }
         });
         add(addUserToProjectButton);
@@ -112,9 +110,6 @@ public class InfoPanel extends JPanel {
         return button;
 
     }
-
-
-
 
 
     // method to set project name and detail

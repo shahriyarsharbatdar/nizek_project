@@ -87,8 +87,9 @@ public class UserManagerSQL {
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
                 UserRole role = UserRole.valueOf(resultSet.getString("role")); // Assuming UserRole is an enum
-
+                int userId = resultSet.getInt("id");
                 User user = new User(name, lastname, email, password, role);
+                user.setUserId(userId);
                 users.add(user);
             }
         } catch (SQLException e) {
