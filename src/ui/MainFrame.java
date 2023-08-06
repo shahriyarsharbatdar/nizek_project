@@ -10,7 +10,6 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
     public MainPanel mainPanel = new MainPanel();
-    public ProjectPageFrame projectPagePanel = new ProjectPageFrame(ProjectManagerSQL.getInstance(),1);
 
     private MainFrame() {
         super("Nizek");

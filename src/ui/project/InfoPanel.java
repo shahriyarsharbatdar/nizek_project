@@ -1,5 +1,7 @@
 package ui.project;
 
+import model.Project;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,7 +11,7 @@ public class InfoPanel extends JPanel {
     JLabel detailText = new JLabel("Detail");
     JTextArea projectDetail = new JTextArea();
 
-    public InfoPanel() {
+    public InfoPanel(Project project) {
         setBounds(0, 50, 900, 650);
         setBackground(new Color(255, 240, 220)); // Light peach background
         setVisible(false);
@@ -38,11 +40,12 @@ public class InfoPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(projectDetail);
         scrollPane.setBounds(100, 400, 200, 150);
         add(scrollPane);
+        setProjectInfo(project);
     }
 
     // Sample method to set project name and detail
-    public void setProjectInfo(String name, String detail) {
-        projectName.setText(name);
-        projectDetail.setText(detail);
+    public void setProjectInfo(Project project) {
+        projectName.setText(project.getName());
+        projectDetail.setText(project.getDescription());
     }
 }

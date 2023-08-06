@@ -37,7 +37,7 @@ public class ProjectTablePanel extends JPanel implements TableModel {
                     selectedProject = projectManagerSQL.getProjectByName(projectName);
                     if (selectedProject != null) {
                         // Open the project page for the selected project
-                        ProjectPageFrame projectPage = new ProjectPageFrame(projectManagerSQL, selectedProject.getProjectId());
+                        ProjectPageFrame projectPage = new ProjectPageFrame(projectManagerSQL, selectedProject);
                         projectPage.setVisible(true);
                     }
                 }

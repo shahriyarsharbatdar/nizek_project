@@ -1,6 +1,7 @@
 package ui.project;
 
 import manager.ProjectManagerSQL;
+import model.Project;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,21 +18,19 @@ public class ProjectPageFrame extends JFrame {
     JButton issuesButton = new JButton("issues");
     JButton reportButton = new JButton("report");
     ProjectManagerSQL projectManagerSQL;
-    int selectedProject;
-    InfoPanel infoPanel = new InfoPanel();
+    InfoPanel infoPanel;
     BoardsPanel boardsPanel = new BoardsPanel();
     IssuesPanel issuesPanel = new IssuesPanel();
     ReportsPanel reportsPanel = new ReportsPanel();
+    Project project;
 
 
-    public ProjectPageFrame(ProjectManagerSQL projectManagerSQL, int selectedProject) {
+    public ProjectPageFrame(ProjectManagerSQL projectManagerSQL, Project project) {
+        this.project = project;
         this.projectManagerSQL = projectManagerSQL;
-        this.selectedProject = selectedProject;
-        System.out.println(selectedProject);
         setSize(900, 700);
         setResizable(false);
         setLocationRelativeTo(null);
-        add(infoPanel);
         add(boardsPanel);
         add(issuesPanel);
         add(reportsPanel);
@@ -43,7 +42,9 @@ public class ProjectPageFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetPanels();
+                infoPanel = new InfoPanel(project);
                 infoPanel.setVisible(true);
+                add(infoPanel);
             }
         });
         infoButton.doClick();
@@ -98,9 +99,9 @@ public class ProjectPageFrame extends JFrame {
     }
 
     public void resetPanels() {
-        infoPanel.setVisible(false);
-        boardsPanel.setVisible(false);
-        issuesPanel.setVisible(false);
-        reportsPanel.setVisible(false);
+        if (infoPanel != null) infoPanel.setVisible(false);
+        if (boardsPanel != null) boardsPanel.setVisible(false);
+        if (issuesPanel != null) issuesPanel.setVisible(false);
+        if (reportsPanel != null) reportsPanel.setVisible(false);
     }
 }
