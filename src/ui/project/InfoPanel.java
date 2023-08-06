@@ -7,12 +7,15 @@ import model.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class InfoPanel extends JPanel {
     JLabel nameText = new JLabel("Name");
     JTextArea projectName = new JTextArea();
     JLabel detailText = new JLabel("Detail");
     JTextArea projectDetail = new JTextArea();
+    JLabel allUsers = new JLabel("All members");
     JComboBox allUsersBox = new JComboBox<>();
 
 
@@ -46,7 +49,10 @@ public class InfoPanel extends JPanel {
         scrollPane.setBounds(100, 400, 200, 150);
         add(scrollPane);
 
-        allUsersBox.setBounds(600,60,200,100);
+        allUsers.setBounds(710,30,100,50);
+        add(allUsers);
+
+        allUsersBox.setBounds(600,70,200,25);
         add(allUsersBox);
         setProjectInfo(project);
 
@@ -55,7 +61,61 @@ public class InfoPanel extends JPanel {
         }
         UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex());
 
+
+
+
+        JButton addUserToProjectButton = createRoundedButton("Add");
+        addUserToProjectButton.setBounds(600, 100, 100, 30);
+        addUserToProjectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Add the selected user to the project
+                String selectedUserName = allUsersBox.getSelectedItem().toString();
+                // Implement the logic to add the user to the project
+            }
+        });
+        add(addUserToProjectButton);
+
+        JButton removeUserFromProjectButton = createRoundedButton("Remove");
+        removeUserFromProjectButton.setBounds(710, 100, 100, 30);
+        removeUserFromProjectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Remove the selected user from the project
+                String selectedUserName = allUsersBox.getSelectedItem().toString();
+                // Implement the logic to remove the user from the project
+            }
+        });
+        add(removeUserFromProjectButton);
     }
+
+    private JButton createRoundedButton(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                if (getModel().isArmed()) {
+                    g.setColor(new Color(145, 206, 252)); // Darker blue when clicked
+                } else {
+                    g.setColor(new Color(66, 165, 245)); // Light blue button
+                }
+
+                g.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                super.paintComponent(g);
+            }
+        };
+        button.setForeground(Color.WHITE); // Set the font color to white
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setMaximumSize(new Dimension(150, 30));
+        return button;
+
+    }
+
+
+
+
 
     // method to set project name and detail
     public void setProjectInfo(Project project) {
