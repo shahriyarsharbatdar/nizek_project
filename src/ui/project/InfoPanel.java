@@ -16,15 +16,19 @@ public class InfoPanel extends JPanel {
     JLabel detailText = new JLabel("Detail");
     JTextArea projectDetail = new JTextArea();
     JLabel allUsers = new JLabel("All members");
-    JComboBox allUsersBox = new JComboBox<>();
+    JComboBox<String> allUsersBox = new JComboBox<>();
+    ProjectUsersTable projectUsersTable;
     InfoPanelController infoPanelController = InfoPanelController.getInstance();
 
 
-    public InfoPanel(Project project) {
+    public InfoPanel(Project project, ActionListener disposeActionListener) {
         setBounds(0, 50, 900, 650);
         setBackground(new Color(255, 240, 220)); // Light peach background
         setVisible(false);
         setLayout(null);
+        projectUsersTable = new ProjectUsersTable(ProjectManagerSQL.getInstance(), project);
+        add(projectUsersTable);
+
 
         nameText.setBounds(100, 70, 100, 30);
         nameText.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -33,7 +37,7 @@ public class InfoPanel extends JPanel {
         projectName.setBounds(100, 100, 200, 30);
         projectName.setBackground(Color.white);
         projectName.setFont(new Font("Arial", Font.PLAIN, 14));
-        projectName.setEditable(false);
+        projectName.setEditable(true);
         add(projectName);
 
         detailText.setBounds(100, 370, 100, 30);
@@ -43,23 +47,28 @@ public class InfoPanel extends JPanel {
         projectDetail.setBounds(100, 400, 200, 150);
         projectDetail.setBackground(Color.white);
         projectDetail.setFont(new Font("Arial", Font.PLAIN, 14));
-        projectDetail.setEditable(false);
+        projectDetail.setEditable(true);
         projectDetail.setLineWrap(true);
         projectDetail.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane scrollPane = new JScrollPane(projectDetail);
         scrollPane.setBounds(100, 400, 200, 150);
         add(scrollPane);
 
+
+        //user combo box
+
         allUsers.setBounds(710, 30, 100, 50);
+        for (User user : UserManagerSQL.getInstance().getUsers()) {
+            allUsersBox.addItem(user.getName());
+        }
         add(allUsers);
 
         allUsersBox.setBounds(600, 70, 200, 25);
         add(allUsersBox);
+
+        //fill name and description box
         setProjectInfo(project);
 
-        for (User user : UserManagerSQL.getInstance().getUsers()) {
-            allUsersBox.addItem(user.getName());
-        }
 
 //        USER IN BOX = UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex());
 
@@ -71,10 +80,14 @@ public class InfoPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (infoPanelController.assigningToProject(UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex()), project)) {
                     JOptionPane.showMessageDialog(null, "member added to Project successfully");
+                    projectUsersTable.revalidate();
+                    projectUsersTable.repaint();
                 } else {
                     JOptionPane.showMessageDialog(null, "member is already exist!");
 
                 }
+//                projectUsersTable.revalidate();
+//                projectUsersTable.repaint();
             }
         });
         add(addUserToProjectButton);
@@ -84,13 +97,44 @@ public class InfoPanel extends JPanel {
         removeUserFromProjectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Remove the selected user from the project
-                String selectedUserName = allUsersBox.getSelectedItem().toString();
-                // Implement the logic to remove the user from the project
+                ProjectManagerSQL.getInstance().softDeleteUserFromProject(UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex()).getUserId(),
+                project.getProjectId());
+                projectUsersTable.revalidate();
+                projectUsersTable.repaint();
             }
         });
         add(removeUserFromProjectButton);
+
+        //save and delete project button
+
+        JButton editProject = createRoundedButton("Edit project");
+        editProject.setBounds(250, 250, 170, 30);
+        editProject.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProjectManagerSQL.getInstance().editProject(project.getProjectId(),projectName.getText(),projectDetail.getText());
+            }
+        });
+        add(editProject);
+
+        JButton removeProject = createRoundedButton("Remove project");
+        removeProject.setBounds(40, 250, 170, 30);
+        removeProject.addActionListener(disposeActionListener);
+        removeProject.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProjectManagerSQL.getInstance().removeProject(project.getProjectId());
+
+            }
+        });
+
+        add(removeProject);
     }
+
+
+
+
+
 
     private JButton createRoundedButton(String text) {
         JButton button = new JButton(text) {

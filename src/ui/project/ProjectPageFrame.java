@@ -42,7 +42,12 @@ public class ProjectPageFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetPanels();
-                infoPanel = new InfoPanel(project);
+                infoPanel = new InfoPanel(project, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dispose();
+                    }
+                });
                 infoPanel.setVisible(true);
                 add(infoPanel);
             }
@@ -104,4 +109,5 @@ public class ProjectPageFrame extends JFrame {
         if (issuesPanel != null) issuesPanel.setVisible(false);
         if (reportsPanel != null) reportsPanel.setVisible(false);
     }
+
 }
