@@ -17,7 +17,7 @@ public class InfoPanel extends JPanel {
     JTextArea projectDetail = new JTextArea();
     JLabel allUsers = new JLabel("All members");
     JComboBox allUsersBox = new JComboBox<>();
-    ProjectManagerSQL projectManagerSQL = ProjectManagerSQL.getInstance();
+    InfoPanelController infoPanelController = InfoPanelController.getInstance();
 
 
     public InfoPanel(Project project) {
@@ -60,7 +60,8 @@ public class InfoPanel extends JPanel {
         for (User user : UserManagerSQL.getInstance().getUsers()) {
             allUsersBox.addItem(user.getName());
         }
-        UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex());
+
+//        USER IN BOX = UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex());
 
 
         JButton addUserToProjectButton = createRoundedButton("Add");
@@ -68,8 +69,12 @@ public class InfoPanel extends JPanel {
         addUserToProjectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                projectManagerSQL.assignUserToProject(UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex()).getUserId()
-                        ,project.getProjectId());
+                if (infoPanelController.assigningToProject(UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex()), project)) {
+                    JOptionPane.showMessageDialog(null, "member added to Project successfully");
+                } else {
+                    JOptionPane.showMessageDialog(null, "member is already exist!");
+
+                }
             }
         });
         add(addUserToProjectButton);

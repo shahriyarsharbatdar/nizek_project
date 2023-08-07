@@ -1,8 +1,7 @@
 package manager;
 
 import model.Project;
-import model.User;
-import model.UserRole;
+
 import model.dataBase.DataBase;
 
 import java.sql.PreparedStatement;
@@ -53,7 +52,7 @@ public class ProjectManagerSQL {
                 String description = resultSet.getString("description");
                 int projectId = resultSet.getInt("idproject");
 
-                Project project = new Project(name, description,projectId);
+                Project project = new Project(name, description, projectId);
                 projects.add(project);
             }
         } catch (SQLException e) {
@@ -75,7 +74,7 @@ public class ProjectManagerSQL {
                 String description = resultSet.getString("description");
                 int projectId = resultSet.getInt("idproject");
 
-                return new Project(name, description,projectId);
+                return new Project(name, description, projectId);
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Or use logger to log the exception
@@ -84,24 +83,35 @@ public class ProjectManagerSQL {
         return null; // Project not found with the given name
     }
 
-    public void assignUserToProject(int userId, int projectId) {
+    public boolean assignUserToProject(int userId, int projectId) {
         try {
+            // Check if the relationship already exists
+            String checkQuery = "SELECT * FROM `user_project` WHERE `user_id` = ? AND `project_id` = ?;";
+            PreparedStatement checkStatement = dataBase.getConnection().prepareStatement(checkQuery);
+            checkStatement.setInt(1, userId);
+            checkStatement.setInt(2, projectId);
+            ResultSet existingRelation = checkStatement.executeQuery();
+
+            if (existingRelation.next()) {
+                System.out.println("The relationship already exists.");
+                return false; // Relationship already exists, return false
+            }
+
             // Prepare the SQL query to insert the assignment into the user_project table
-            String query = "INSERT INTO `nizekproject`.`user_project` (`user_id`, `project_id`) VALUES (?, ?);";
+            String insertQuery = "INSERT INTO `user_project` (`user_id`, `project_id`) VALUES (?, ?);";
 
-            // Create a PreparedStatement to safely execute the query
-            PreparedStatement statement = dataBase.getConnection().prepareStatement(query);
-
-            // Set the user_id and project_id values in the PreparedStatement
-            statement.setInt(1, userId);
-            statement.setInt(2, projectId);
+            // Create a PreparedStatement to safely execute the insert query
+            PreparedStatement insertStatement = dataBase.getConnection().prepareStatement(insertQuery);
+            insertStatement.setInt(1, userId);
+            insertStatement.setInt(2, projectId);
 
             // Execute the query to insert the assignment
-            statement.executeUpdate();
+            insertStatement.executeUpdate();
+            System.out.println("Assigned user to project successfully");
+            return true; // Assignment successful, return true
         } catch (SQLException e) {
             throw new RuntimeException("Error assigning user to project: " + e.getMessage());
         }
     }
-
-
 }
+

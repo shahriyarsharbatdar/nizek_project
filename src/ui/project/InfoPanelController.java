@@ -2,6 +2,7 @@ package ui.project;
 
 import manager.ProjectManagerSQL;
 import model.Project;
+import model.User;
 
 public class InfoPanelController {
     private static InfoPanelController instance = null;
@@ -22,8 +23,8 @@ public class InfoPanelController {
         return instance;
     }
 
-    public Project projectInfo(String name){
-        return projectManagerSQL.getProjectByName(name);
+    public boolean assigningToProject(User user, Project project) {
+        return projectManagerSQL.assignUserToProject(user.getUserId(), project.getProjectId());
     }
 
 }
