@@ -83,4 +83,8 @@ public class ProjectUsersTable  extends JPanel implements TableModel {
     public void removeTableModelListener(TableModelListener l) {
 
     }
+    public void refreshTable() {
+        jt.updateUI();
+    }
+
 }

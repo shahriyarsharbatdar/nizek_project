@@ -80,14 +80,11 @@ public class InfoPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (infoPanelController.assigningToProject(UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex()), project)) {
                     JOptionPane.showMessageDialog(null, "member added to Project successfully");
-                    projectUsersTable.revalidate();
-                    projectUsersTable.repaint();
+                    projectUsersTable.refreshTable();
                 } else {
                     JOptionPane.showMessageDialog(null, "member is already exist!");
 
                 }
-//                projectUsersTable.revalidate();
-//                projectUsersTable.repaint();
             }
         });
         add(addUserToProjectButton);
@@ -98,9 +95,9 @@ public class InfoPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ProjectManagerSQL.getInstance().softDeleteUserFromProject(UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex()).getUserId(),
-                project.getProjectId());
-                projectUsersTable.revalidate();
-                projectUsersTable.repaint();
+                        project.getProjectId());
+                projectUsersTable.refreshTable();
+
             }
         });
         add(removeUserFromProjectButton);
@@ -112,7 +109,7 @@ public class InfoPanel extends JPanel {
         editProject.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProjectManagerSQL.getInstance().editProject(project.getProjectId(),projectName.getText(),projectDetail.getText());
+                ProjectManagerSQL.getInstance().editProject(project.getProjectId(), projectName.getText(), projectDetail.getText());
             }
         });
         add(editProject);
@@ -130,10 +127,6 @@ public class InfoPanel extends JPanel {
 
         add(removeProject);
     }
-
-
-
-
 
 
     private JButton createRoundedButton(String text) {
