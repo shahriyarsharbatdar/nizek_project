@@ -1,5 +1,6 @@
 package ui;
 import manager.ProjectManagerSQL;
+import model.Project;
 import ui.login.LoginView;
 import ui.mainPage.MainPanel;
 import ui.project.ProjectPageFrame;
@@ -19,10 +20,9 @@ public class MainFrame extends JFrame {
         setResizable(false);
         getContentPane().setBackground(new Color(20, 195, 142));
         mainPanel.setBounds(0,0,getWidth(),getHeight());
-        add(LoginView.getInstance());
+//        add(LoginView.getInstance());
         add(mainPanel);
-//        add(projectPagePanel);
-        mainPanel.setVisible(false);
+        mainPanel.setVisible(true);
         setLayout(null);
         setVisible(true);
     }

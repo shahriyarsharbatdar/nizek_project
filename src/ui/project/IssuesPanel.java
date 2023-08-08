@@ -6,7 +6,9 @@ import java.awt.*;
 public class IssuesPanel extends JPanel {
     public IssuesPanel() {
         setBounds(0,50,900,650);
-        setBackground(Color.yellow);
+        setBackground(Color.green);
         setVisible(false);
     }
 }
+
+
