@@ -4,14 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class BoardsPanel extends JPanel {
-    private ArrayList<JButton> boardButtons = new ArrayList<>();
+    private ArrayList<JPanel> boardPanel = new ArrayList<>();
     private JPanel buttonContainer;
-    DefaultBoard defaultBoard;
-    public BoardsPanel() {
-        setBounds(0, 50, 900, 650);
+    public BoardsPanel(BasePanelForBoard basePanelForBoard) {
+        setBounds(0, 0, 900, 650);
         setBackground(new Color(240, 240, 240)); // Light gray background
         setLayout(null);
 
@@ -28,13 +29,8 @@ public class BoardsPanel extends JPanel {
         defaultButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                defaultBoard=new DefaultBoard();
-                add(defaultBoard,0);
-                isEnabled();
-                revalidate();
-                repaint();
-
-
+                basePanelForBoard.boardsPanel.setVisible(false);
+                basePanelForBoard.defaultBoard.setVisible(true);
             }
         });
 
@@ -46,20 +42,33 @@ public class BoardsPanel extends JPanel {
         addBoardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createNewBoardButton();
+                createNewBoardPanel();
             }
         });
         buttonContainer.add(addBoardButton);
     }
 
-    private void createNewBoardButton() {
-        JButton newBoardButton = new JButton("Board " + (boardButtons.size() + 1));
+    private void createNewBoardPanel() {
+        JPanel newBoardButton = new JPanel();
+        newBoardButton.setLayout(null);
+        JLabel label=new JLabel("Board");
+        label.setBounds(60,0,100,100);
+        newBoardButton.add(label);
+
         newBoardButton.setFont(new Font("Arial", Font.BOLD, 16));
         newBoardButton.setBackground(new Color(0, 102, 204)); // Dark blue background
         newBoardButton.setForeground(Color.black);
         newBoardButton.setPreferredSize(new Dimension(150, 100));
+        newBoardButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount()==2){
+                    System.out.println("hello");
+                }
+            }
+        });
 
-        boardButtons.add(newBoardButton);
+        boardPanel.add(newBoardButton);
         buttonContainer.add(newBoardButton, 1); // Add to the right of "Default" button
 
         revalidate(); // Revalidate the panel to update the layout

@@ -79,7 +79,6 @@ public class InfoPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (infoPanelController.assigningToProject(UserManagerSQL.getInstance().getUsers().get(allUsersBox.getSelectedIndex()), project)) {
-                    JOptionPane.showMessageDialog(null, "member added to Project successfully");
                     projectUsersTable.refreshTable();
                 } else {
                     JOptionPane.showMessageDialog(null, "member is already exist!");

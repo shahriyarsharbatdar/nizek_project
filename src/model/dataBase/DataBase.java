@@ -64,6 +64,26 @@ public class DataBase {
         } catch (SQLException e) {
             throw new RuntimeException("Error creating user_project table: " + e.getMessage());
         }
+        try {
+            String createIssuesTableQuery = "CREATE TABLE IF NOT EXISTS nizekproject.issue (\n" +
+                    "  id INT NOT NULL AUTO_INCREMENT,\n" +
+                    "  title VARCHAR(255) NOT NULL,\n" +
+                    "  description TEXT,\n" +
+                    "  status VARCHAR(45) NOT NULL,\n" + // Store status as integer
+                    "  createDate DATETIME NOT NULL,\n" +
+                    "  updateDate DATETIME,\n" +
+                    "  type VARCHAR(45) NOT NULL,\n" + // Store type as integer
+                    "  priority VARCHAR(45) NOT NULL,\n" + // Store priority as integer
+                    "  PRIMARY KEY (id)\n" +
+                    ");";
+
+            connection.createStatement().executeUpdate(createIssuesTableQuery);
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating issue table: " + e.getMessage());
+        }
+
+
 
     }
 

@@ -19,7 +19,7 @@ public class ProjectPageFrame extends JFrame {
     JButton reportButton = new JButton("report");
     ProjectManagerSQL projectManagerSQL;
     InfoPanel infoPanel;
-    BoardsPanel boardsPanel = new BoardsPanel();
+    BasePanelForBoard basePanelForBoard = new BasePanelForBoard();
     IssuesPanel issuesPanel = new IssuesPanel();
     ReportsPanel reportsPanel = new ReportsPanel();
     Project project;
@@ -31,8 +31,7 @@ public class ProjectPageFrame extends JFrame {
         setSize(900, 700);
         setResizable(false);
         setLocationRelativeTo(null);
-        add(boardsPanel);
-        add(issuesPanel);
+        add(basePanelForBoard);
         add(reportsPanel);
         setLayout(null);
         setVisible(false);
@@ -60,7 +59,8 @@ public class ProjectPageFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetPanels();
-                boardsPanel.setVisible(true);
+                System.out.println("hi");
+                basePanelForBoard.setVisible(true);
             }
         });
 
@@ -70,6 +70,7 @@ public class ProjectPageFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetPanels();
+                add(issuesPanel);
                 issuesPanel.setVisible(true);
             }
         });
@@ -105,7 +106,7 @@ public class ProjectPageFrame extends JFrame {
 
     public void resetPanels() {
         if (infoPanel != null) infoPanel.setVisible(false);
-        if (boardsPanel != null) boardsPanel.setVisible(false);
+        if (basePanelForBoard != null) basePanelForBoard.setVisible(false);
         if (issuesPanel != null) issuesPanel.setVisible(false);
         if (reportsPanel != null) reportsPanel.setVisible(false);
     }

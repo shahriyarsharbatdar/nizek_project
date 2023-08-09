@@ -7,7 +7,6 @@ public class DefaultBoard extends JPanel {
     public DefaultBoard() {
         setBounds(0, 0, 900, 650);
         setBackground(Color.yellow);
-        setVisible(false);
         setLayout(new GridLayout(1, 4, 10, 0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 

@@ -4,13 +4,13 @@ import java.util.List;
 
 public class Board {
     private String name;
-    private BoardCategory category; // Board category (To Do, In Progress, QA, or Done)
+    private Status status; // Board category (To Do, In Progress, QA, or Done)
     private User user; // User associated with this board
     private List<Issue> issues;
 
-    public Board(String name, BoardCategory category, User user) {
+    public Board(String name, Status status, User user) {
         this.name = name;
-        this.category = category;
+        this.status = status;
         this.user = user;
         this.issues = new ArrayList<>();
     }
