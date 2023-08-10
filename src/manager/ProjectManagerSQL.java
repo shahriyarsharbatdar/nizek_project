@@ -31,7 +31,7 @@ public class ProjectManagerSQL {
     }
 
     public void addProject(String name, String description) {
-        String query = "INSERT INTO `nizekproject`.`project` (`name`, `description`) VALUES (?, ?)";
+        String query = "INSERT INTO `ngi`.`project` (`name`, `description`) VALUES (?, ?)";
 
         try (PreparedStatement preparedStatement = dataBase.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, name);

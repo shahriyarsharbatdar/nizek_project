@@ -13,6 +13,7 @@ public class Issue {
     private Status status;
     private int issueId;
     private int projectId;
+    private int userId;
 
 
     public Issue(String title, String description, Status status, IssueType issueType, Priority priority) {
@@ -109,5 +110,13 @@ public class Issue {
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

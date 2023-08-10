@@ -20,7 +20,7 @@ public class ProjectPageFrame extends JFrame {
     ProjectManagerSQL projectManagerSQL;
     InfoPanel infoPanel;
     BasePanelForBoard basePanelForBoard = new BasePanelForBoard();
-    IssuesPanel issuesPanel = new IssuesPanel();
+    IssuesPanel issuesPanel;
     ReportsPanel reportsPanel = new ReportsPanel();
     Project project;
 
@@ -70,6 +70,7 @@ public class ProjectPageFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetPanels();
+                issuesPanel = new IssuesPanel(project,ProjectPageFrame.this);
                 add(issuesPanel);
                 issuesPanel.setVisible(true);
             }
@@ -81,7 +82,7 @@ public class ProjectPageFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetPanels();
-                reportsPanel.setVisible(true);
+
             }
         });
 

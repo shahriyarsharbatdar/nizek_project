@@ -57,6 +57,8 @@ public class UserManagerSQL {
             statement.setString(4, role.toString());
             statement.setString(5, email);
 
+
+
             // Execute the query to update the user's information
             int rowsAffected = statement.executeUpdate();
 
@@ -115,6 +117,41 @@ public class UserManagerSQL {
         return false; // Return false if an exception occurred
     }
 
+
+    public User getUserByName(String name){
+        for (User user: getUsers()) {
+            if(user.getName().equals(name)){
+                return user;
+            }
+        }
+        return null;
+    }
+
+
+    public User getUserById(int userId) {
+        try {
+            String query = "SELECT * FROM user WHERE id=?";
+            PreparedStatement statement = dataBase.getConnection().prepareStatement(query);
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String lastname = resultSet.getString("lastname");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                UserRole role = UserRole.valueOf(resultSet.getString("role")); // Assuming UserRole is an enum
+
+                return new User(name, lastname, email, password, role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Or use logger to log the exception
+        }
+
+        return null; // Return null if no user is found for the given ID
+    }
+
+
+
     public User getUserByEmail(String email) {
         try {
             String query = "SELECT * FROM user WHERE email=?";
@@ -136,6 +173,7 @@ public class UserManagerSQL {
 
         return null; // Return null if no user is found for the given email
     }
+
 
     public boolean isDatabaseEmpty() {
         try {

@@ -20,8 +20,6 @@ public class DefaultBoard extends JPanel {
             add(panel);
         }
 
-//        add(mainPanel, BorderLayout.CENTER);
-
         JButton newIssueButton = new JButton("New Issue");
         newIssueButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
