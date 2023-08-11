@@ -119,4 +119,21 @@ public class Issue {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Issue{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", assignee=" + assignee +
+                ", Issuetype=" + Issuetype +
+                ", isOpen=" + isOpen +
+                ", dueDate=" + dueDate +
+                ", priority=" + priority +
+                ", status=" + status +
+                ", issueId=" + issueId +
+                ", projectId=" + projectId +
+                ", userId=" + userId +
+                '}';
+    }
 }

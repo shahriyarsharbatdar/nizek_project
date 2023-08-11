@@ -70,8 +70,6 @@ public class LoginView extends JPanel {
         add(loginButton);
 
 
-
-
         int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
         InputMap inputMap = getInputMap(condition);
         ActionMap actionMap = getActionMap();
@@ -93,17 +91,9 @@ public class LoginView extends JPanel {
         }
         return instance;
     }
-    private void showMainPage() {
-        setVisible(false); // Hide the login view
-        MainFrame.getInstance().mainPanel.setVisible(true); // Show the main page
-    }
 
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
+    public JButton getLoginButton() {
+        return loginButton;
     }
 }
 

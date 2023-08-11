@@ -19,7 +19,7 @@ public class ProjectPageFrame extends JFrame {
     JButton reportButton = new JButton("report");
     ProjectManagerSQL projectManagerSQL;
     InfoPanel infoPanel;
-    BasePanelForBoard basePanelForBoard = new BasePanelForBoard();
+    BasePanelForBoard basePanelForBoard;
     IssuesPanel issuesPanel;
     ReportsPanel reportsPanel = new ReportsPanel();
     Project project;
@@ -28,6 +28,7 @@ public class ProjectPageFrame extends JFrame {
     public ProjectPageFrame(ProjectManagerSQL projectManagerSQL, Project project) {
         this.project = project;
         this.projectManagerSQL = projectManagerSQL;
+        basePanelForBoard = new BasePanelForBoard(project);
         setSize(900, 700);
         setResizable(false);
         setLocationRelativeTo(null);

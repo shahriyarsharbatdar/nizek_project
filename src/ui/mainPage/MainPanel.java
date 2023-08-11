@@ -3,6 +3,7 @@ package ui.mainPage;
 import manager.ProjectManagerSQL;
 import manager.UserManagerSQL;
 import ui.login.Controller;
+import ui.login.LoginView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,6 +42,8 @@ public class MainPanel extends JPanel {
         };
         sidebarPanel.setPreferredSize(new Dimension(210, 0)); // Set a fixed width for the sidebar
         sidebarPanel.setLayout(new BoxLayout(sidebarPanel, BoxLayout.Y_AXIS));
+
+
 
         // Add welcome label to the sidebar
         JLabel welcomeLabel = new JLabel("Welcome, Admin");
@@ -94,6 +97,7 @@ public class MainPanel extends JPanel {
                 projectTablePanel.setVisible(false);
                 userTablePanel.setVisible(false);
                 addProjectPanel.setVisible(true);
+
             }
         });
         sidebarPanel.add(addProjectButton);
@@ -123,10 +127,13 @@ public class MainPanel extends JPanel {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Logout functionality here
+                setVisible(false);
+                LoginView.getInstance().setVisible(true);
+                LoginView.getInstance().getLoginButton().setVisible(true);
             }
         });
         sidebarPanel.add(logoutButton);
+
 
         // Add the sidebar panel to the main panel using BorderLayout
         setLayout(new BorderLayout());
@@ -193,3 +200,7 @@ public class MainPanel extends JPanel {
 
 
 }
+
+
+
+

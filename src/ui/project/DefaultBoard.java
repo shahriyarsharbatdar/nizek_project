@@ -1,33 +1,54 @@
 package ui.project;
 
+import manager.IssueManagerSQL;
+import model.Issue;
+import model.Project;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class DefaultBoard extends JPanel {
-    public DefaultBoard() {
-        setBounds(0, 0, 900, 650);
-        setBackground(Color.yellow);
-        setLayout(new GridLayout(1, 4, 10, 0));
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    public class DefaultBoard extends JPanel {
+        private final int BOARD_COLUMNS = 4;
+        Project project;
 
-        String[] labels = {"To Do", "In Progress", "QA", "Done"};
+        public DefaultBoard(Project project) {
+            this.project = project;
+            setBounds(0, 0, 900, 650);
+            setBackground(Color.yellow);
+            setLayout(new GridLayout(1, BOARD_COLUMNS, 10, 0));
+            setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        for (String label : labels) {
-            JPanel panel = new JPanel(new BorderLayout());
-            panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            JLabel titleLabel = new JLabel(label, JLabel.CENTER);
-            panel.add(titleLabel, BorderLayout.NORTH);
-            add(panel);
+            String[] statusLabels = {"To Do", "In Progress", "QA", "Done"};
+
+            for (String statusLabel : statusLabels) {
+                JPanel columnPanel = new JPanel(new GridLayout(0, 1, 0, 10));
+                columnPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+                ArrayList<Issue> issues = IssueManagerSQL.getInstance().getIssuesByProjectId(project.getProjectId());
+
+                for (Issue issue : issues) {
+                    if (issue.getStatus().toString().equalsIgnoreCase(statusLabel)) {
+                        JPanel issuePanel = createIssuePanel(issue);
+                        columnPanel.add(issuePanel);
+                    }
+                }
+
+                add(columnPanel);
+            }
+            setVisible(true);
         }
 
-        JButton newIssueButton = new JButton("New Issue");
-        newIssueButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        private JPanel createIssuePanel(Issue issue) {
+            JPanel issuePanel = new JPanel(new BorderLayout());
+            issuePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(newIssueButton);
+            JLabel titleLabel = new JLabel(issue.getTitle(), JLabel.CENTER);
+            issuePanel.add(titleLabel, BorderLayout.NORTH);
 
-        add(buttonPanel, BorderLayout.SOUTH);
+            // Add more labels or information about the issue to the panel
+            // Customize the appearance of the issue panel based on your requirements
 
-        setVisible(true);
+            return issuePanel;
+        }
     }
-}

@@ -20,9 +20,9 @@ public class MainFrame extends JFrame {
         setResizable(false);
         getContentPane().setBackground(new Color(20, 195, 142));
         mainPanel.setBounds(0,0,getWidth(),getHeight());
-//        add(LoginView.getInstance());
+        add(LoginView.getInstance());
         add(mainPanel);
-        mainPanel.setVisible(true);
+        mainPanel.setVisible(false);
         setLayout(null);
         setVisible(true);
     }

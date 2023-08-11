@@ -70,10 +70,7 @@ public class IssueFormPanel extends JFrame {
             statusComboBox.setSelectedItem(issue.getStatus());
             issueTypeComboBox.setSelectedItem(issue.getIssueType());
             priorityComboBox.setSelectedItem(issue.getPriority());
-//            userComboBox.setSelectedItem(UserManagerSQL.getInstance().getUserById(issue.getUserId()).getName());
             if(UserManagerSQL.getInstance().getUserById(issue.getUserId()) != null){issueAssigneTo.setText(UserManagerSQL.getInstance().getUserById(issue.getUserId()).getName());}
-//            System.out.println(UserManagerSQL.getInstance().getUserById(issue.getUserId()).getName());
-            System.out.println(issue.getUserId());
         }
 
         // Buttons
