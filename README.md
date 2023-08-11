@@ -17,7 +17,7 @@ Key Features:
 
 #Getting Started:
 
-1. Clone the repository: git clone https://github.com/your-username/project-manager.git
+1. Clone the repository: git clone https://github.com/your-username/nizek_project.git
 
 3. Build and Launch: Utilize your preferred IDE or build tools for project compilation and Java execution.
 
