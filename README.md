@@ -1,4 +1,3 @@
-# nizek_project
 #Project Manager
 
 Welcome to our Project Manager application – a streamlined solution for effective project, issue, and status management. With a user-friendly interface, you can seamlessly create, track, and organize your projects and their components.
